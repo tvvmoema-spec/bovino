@@ -1,0 +1,14 @@
+.git
+.gitignore
+node_modules/
+**/node_modules/
+entregaveis/
+prompt.md
+*.log
+chrome_temp_profile/
+package.json
+package-lock.json
+**/package.json
+**/package-lock.json
+Dockerfile
+.dockerignore
