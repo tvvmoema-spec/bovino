@@ -1474,10 +1474,10 @@ button {
 }
 
 .highlight-underline {
-    text-decoration: underline;
-    text-decoration-color: var(--color-accent-gold);
-    text-decoration-thickness: 3.5px;
-    text-underline-offset: -3px;
+    background-image: linear-gradient(var(--color-accent-gold), var(--color-accent-gold));
+    background-position: 0 92%;
+    background-size: 100% 3.5px;
+    background-repeat: no-repeat;
     font-weight: inherit;
     color: inherit;
     display: inline;
