@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área de Membros | +300 Técnicas de Identificação de Doenças Bovinas Ilustradas</title>
+    
+    <!-- SEO & Accessibility Meta Tags -->
+    <meta name="description" content="Acesse sua área de membros para consultar as técnicas de identificação de doenças bovinas, guias de parasitas, plantas tóxicas e emitir seu certificado de conclusão.">
+    
+    <!-- Google Fonts: Outfit (Titles), Plus Jakarta Sans (Body) & Cinzel (Certificate Name) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Local Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Canvas Confetti CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+
+    <div id="app-container">
+        
+        <!-- ==========================================
+             1. TELA DE LOGIN (slug: #/login)
+             ========================================== -->
+        <section id="login-view" class="auth-wrapper hidden">
+            <div class="login-card">
+                <div class="login-header">
+                    <h2>Acesso do Aluno</h2>
+                    <p>Entre com seu e-mail e senha de compra para acessar os materiais exclusivos.</p>
+                </div>
+                
+                <form id="login-form" class="login-form" novalidate>
+                    <div class="form-group">
+                        <label for="login-email">E-mail de Acesso</label>
+                        <div class="input-wrapper">
+                            <input type="email" id="login-email" placeholder="seuemail@exemplo.com" required>
+                        </div>
+                        <span class="error-message" id="email-error">E-mail inválido ou campo vazio.</span>
+                    </div>
+
+                    <div class="form-feedback-error" id="login-feedback">
+                        E-mail incorreto. Por favor, tente novamente.
+                    </div>
+                    
+                    <button type="submit" class="btn btn-login" id="btn-submit-login">
+                        <span>Acessar Área de Membros</span>
+                        <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </form>
+                
+
+            </div>
+        </section>
+
+        <!-- ==========================================
+             2. PAINEL DE CONTROLE (slug: #/dashboard)
+             ========================================== -->
+        <main id="dashboard-view" class="dashboard-wrapper hidden">
+            
+            <!-- Header do Dashboard -->
+            <header class="dashboard-header">
+                <div class="dashboard-header-container">
+                    <h1 class="dashboard-title">Área de Membros</h1>
+                    
+                    <div class="header-user-actions">
+                        <span class="user-greeting">Olá, Aluno!</span>
+                        <button class="btn-logout" id="btn-logout" aria-label="Sair da conta">
+                            <span>Sair</span>
+                            <svg class="icon-logout" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Seção de Destaque e Progresso -->
+            <section class="progress-section">
+                <div class="container">
+                    <div class="progress-card">
+                        <div class="progress-info">
+                            <div class="progress-text-group">
+                                <h2>Seu Progresso de Estudos</h2>
+                                <p>Marque os materiais concluídos para acumular progresso e liberar seu Certificado Oficial.</p>
+                            </div>
+                            <div class="progress-badge">
+                                <span id="progress-fraction">0 de 4</span> concluídos
+                            </div>
+                        </div>
+                        
+                        <div class="progress-bar-wrapper">
+                            <div class="progress-bar-fill" id="progress-bar-fill" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Grid de Cards de Conteúdo -->
+            <section class="content-section">
+                <div class="container">
+                    <div class="content-grid">
+                        
+                        <!-- CARD 1: PRODUTO PRINCIPAL -->
+                        <article class="content-card" id="card-main-product">
+                            <div class="card-banner-wrapper">
+                                <img src="https://i.ibb.co/XrV2vhCt/image.png" alt="Banner +300 Técnicas de Identificação de Doenças Bovinas" class="card-banner">
+                            </div>
+                            <div class="card-body">
+                                <h3 class="card-title">+300 Técnicas de Identificação de Doenças Bovinas Ilustradas</h3>
+                                <p class="card-desc">Material principal contendo o passo a passo com referências visuais detalhadas de sinais clínicos para identificação rápida de doenças no campo.</p>
+                                <div class="card-action-row">
+                                    <a href="https://drive.google.com/file/d/1kDMdf_QUJqUvK663T1LqsjLWh-bSrg5O/view" target="_blank" class="btn btn-open-material">
+                                        <svg class="icon-open" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        <span>Abrir Material</span>
+                                    </a>
+                                    <button class="btn-check-complete" data-card-id="card-main-product" aria-label="Marcar como concluído">
+                                        <svg class="icon-checkmark" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        <span class="btn-check-text">Concluir</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- CARD 2: BÔNUS 1 -->
+                        <article class="content-card" id="card-bonus-parasites">
+                            <div class="card-banner-wrapper">
+                                <img src="https://i.ibb.co/PzFyk9k7/image.png" alt="Banner Atlas Visual de Parasitas do Rebanho" class="card-banner">
+                            </div>
+                            <div class="card-body">
+                                <h3 class="card-title">Atlas Visual de Parasitas do Rebanho</h3>
+                                <p class="card-desc">Diagnostique rapidamente carrapatos, bernes, verminoses e outros parasitas externos e internos comuns no dia a dia da criação.</p>
+                                <div class="card-action-row">
+                                    <a href="#" target="_blank" class="btn btn-open-material">
+                                        <svg class="icon-open" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        <span>Abrir Material</span>
+                                    </a>
+                                    <button class="btn-check-complete" data-card-id="card-bonus-parasites" aria-label="Marcar como concluído">
+                                        <svg class="icon-checkmark" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        <span class="btn-check-text">Concluir</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- CARD 3: BÔNUS 2 -->
+                        <article class="content-card" id="card-bonus-plants">
+                            <div class="card-banner-wrapper">
+                                <img src="https://i.ibb.co/jkJ73R6h/image.png" alt="Banner Guia de Plantas Tóxicas Encontradas em Pastagens" class="card-banner">
+                            </div>
+                            <div class="card-body">
+                                <h3 class="card-title">Guia de Plantas Tóxicas Encontradas em Pastagens</h3>
+                                <p class="card-desc">Reconheça plantas venenosas em pastos que colocam em risco a vida do gado e evite perdas repentinas de cabeças no rebanho.</p>
+                                <div class="card-action-row">
+                                    <a href="#" target="_blank" class="btn btn-open-material">
+                                        <svg class="icon-open" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        <span>Abrir Material</span>
+                                    </a>
+                                    <button class="btn-check-complete" data-card-id="card-bonus-plants" aria-label="Marcar como concluído">
+                                        <svg class="icon-checkmark" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        <span class="btn-check-text">Concluir</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- CARD 4: BÔNUS 3 -->
+                        <article class="content-card" id="card-bonus-breeds">
+                            <div class="card-banner-wrapper">
+                                <img src="https://i.ibb.co/7ddysdy4/image.png" alt="Banner Manual de Raças de Corte e Leite" class="card-banner">
+                            </div>
+                            <div class="card-body">
+                                <h3 class="card-title">Manual de Identificação das Principais Raças de Corte e Leite</h3>
+                                <p class="card-desc">Identifique com clareza o padrão racial, comportamento e aptidão leiteira e de ganho de peso das principais raças criadas no Brasil.</p>
+                                <div class="card-action-row">
+                                    <a href="#" target="_blank" class="btn btn-open-material">
+                                        <svg class="icon-open" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        <span>Abrir Material</span>
+                                    </a>
+                                    <button class="btn-check-complete" data-card-id="card-bonus-breeds" aria-label="Marcar como concluído">
+                                        <svg class="icon-checkmark" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        <span class="btn-check-text">Concluir</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- CARD 5: CERTIFICADO DE CONCLUSÃO (DINÂMICO) -->
+                        <article class="content-card certificate-card" id="card-certificate">
+                            <div class="card-banner-wrapper">
+                                <img src="./certificado.png" alt="Banner do Certificado de Conclusão" class="card-banner">
+                            </div>
+                            
+                            <!-- Subtelas Condicionais dentro do mesmo Card -->
+                            
+                            <!-- ESTADO 1: BLOQUEADO (Progresso < 4) -->
+                            <div class="card-body cert-state" id="cert-state-locked">
+                                <div class="locked-overlay">
+                                    <svg class="icon-lock" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <h3 class="card-title">Certificado de Conclusão Oficial</h3>
+                                    <p class="card-desc">Complete a leitura e o monitoramento dos 4 materiais anteriores para habilitar a emissão do seu certificado.</p>
+                                    <div class="lock-status">Bloqueado (Complete 4/4 materiais)</div>
+                                </div>
+                            </div>
+
+                            <!-- ESTADO 2: SOLICITAÇÃO DE NOME COMPLETO -->
+                            <div class="card-body cert-state hidden" id="cert-state-form">
+                                <h3 class="card-title">🎉 Parabéns! Certificado Liberado</h3>
+                                <p class="card-desc">Você concluiu todos os materiais. Digite seu nome completo abaixo para emitir o certificado. <strong>Atenção: O nome pode ser definido apenas uma única vez por conta.</strong></p>
+                                
+                                <form id="certificate-name-form" class="cert-form" novalidate>
+                                    <div class="form-group">
+                                        <input type="text" id="cert-full-name" placeholder="Digite seu nome completo para o certificado..." required minlength="3">
+                                        <span class="error-message" id="cert-name-error">Insira um nome válido (mínimo de 3 caracteres).</span>
+                                    </div>
+                                    <button type="submit" class="btn btn-generate-cert" id="btn-submit-cert">
+                                        <span>Emitir Meu Certificado</span>
+                                        <svg class="icon-stamp" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12 22a5 5 0 1 0 0-10 5 5 0 0 0 0 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M12 12V2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M7 6h10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </button>
+                                </form>
+                            </div>
+
+                            <!-- ESTADO 3: CERTIFICADO DISPONÍVEL -->
+                            <div class="card-body cert-state hidden" id="cert-state-ready">
+                                <h3 class="card-title">🏆 Certificado Emitido!</h3>
+                                <p class="card-desc">O seu certificado de conclusão já está pronto e assinado digitalmente em nome de <strong id="student-name-display">Nome do Aluno</strong>.</p>
+                                
+                                <button class="btn btn-view-cert" id="btn-open-certificate">
+                                    <svg class="icon-eye" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <span>Visualizar Certificado</span>
+                                </button>
+                            </div>
+                            
+                        </article>
+
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- ==========================================
+             3. MODAL OVERLAY DO CERTIFICADO (EMISSÃO / PRINT / DOWNLOAD)
+             ========================================== -->
+        <div class="certificate-modal-overlay hidden" id="certificate-modal">
+            <div class="modal-content-container">
+                <button class="btn-close-modal" id="btn-close-modal" aria-label="Fechar visualização do certificado">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </button>
+                
+                <!-- Wrapper visual do Certificado: canvas renderiza tudo pixel-perfeito -->
+                <div class="certificate-preview-box">
+                    <canvas id="cert-preview-canvas" style="width:100%;display:block;"></canvas>
+                </div>
+
+                <!-- Botões de ação inferiores -->
+                <div class="modal-action-buttons">
+                    <button class="btn btn-action-print" id="btn-print-certificate">
+                        <svg class="icon-action" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <polyline points="6 9 6 2 18 2 18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <rect x="6" y="14" width="12" height="8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Imprimir / Salvar PDF</span>
+                    </button>
+                    
+                    <button class="btn btn-action-png" id="btn-download-png">
+                        <svg class="icon-action" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Baixar Imagem (.png)</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+    <!-- Container de impressão (renderizado apenas no fluxo @media print) -->
+    <div id="certificate-print-container" class="hidden-screen">
+        <img id="print-cert-img" src="" alt="Certificado" style="width:100%;height:100%;object-fit:fill;display:block;">
+    </div>
+
+    <!-- Hidden Canvas para exportar o PNG via Javascript -->
+    <canvas id="export-canvas" width="1536" height="1024" style="display: none;"></canvas>
+
+    <!-- Local Application Logic -->
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+entregaveis/
+prompt.md
+chrome_temp_profile/
+node_modules/
+.tempmediaStorage/
+*.log

@@ -1,0 +1,906 @@
+/* ==========================================================================
+   DESIGN SYSTEM & CONSTANTS (MOBILE-FIRST)
+   ========================================================================== */
+:root {
+    /* Color Palette */
+    --color-bg-primary: #faf7f0;       /* Bege muito suave quente */
+    --color-bg-card: #ffffff;          /* Branco puro */
+    --color-brown-dark: #29180d;       /* Marrom profundo agro */
+    --color-brown-medium: #543725;     /* Marrom médio terroso */
+    --color-beige-warm: #d5ae86;       /* Bege dourado/couro */
+    --color-accent-gold: #be803a;      /* Ouro rústico */
+    --color-accent-orange: #d97706;    /* Laranja de alta conversão (CTA) */
+    --color-accent-orange-hover: #b45309;
+    --color-success: #15803d;          /* Verde floresta para conclusão */
+    --color-success-bg: rgba(21, 128, 61, 0.1);
+    --color-danger: #b91c1c;           /* Alertas */
+    
+    /* Typography */
+    --font-titles: 'Outfit', sans-serif;
+    --font-body: 'Plus Jakarta Sans', sans-serif;
+    --font-cert: 'Cinzel', serif;
+
+    /* Shadows & Transitions */
+    --shadow-sm: 0 2px 6px rgba(41, 24, 13, 0.05);
+    --shadow-md: 0 10px 20px rgba(41, 24, 13, 0.08);
+    --shadow-lg: 0 20px 40px rgba(41, 24, 13, 0.12);
+    --transition-smooth: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+    
+    --border-radius-sm: 8px;
+    --border-radius-md: 16px;
+    --border-radius-lg: 24px;
+}
+
+/* ==========================================================================
+   RESET & LAYOUT BASE
+   ========================================================================== */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--color-bg-primary);
+    color: var(--color-brown-dark);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+a {
+    color: var(--color-accent-gold);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+button {
+    font-family: inherit;
+    border: none;
+    background: none;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.hidden {
+    display: none !important;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* ==========================================================================
+   1. ESTILOS DE AUTENTICAÇÃO (TELA DE LOGIN)
+   ========================================================================== */
+.auth-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    background-color: #120c08;
+    background-image: 
+        radial-gradient(circle at top right, rgba(213, 174, 134, 0.12), transparent 60%),
+        radial-gradient(circle at center, #271a10 0%, #0d0704 100%);
+    background-attachment: fixed;
+}
+
+.login-card {
+    background-color: var(--color-bg-card);
+    width: 100%;
+    max-width: 440px;
+    padding: 2.5rem 2rem;
+    border-radius: var(--border-radius-md);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(213, 174, 134, 0.15);
+    text-align: center;
+}
+
+.login-header {
+    margin-bottom: 2rem;
+}
+
+.login-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+}
+
+.login-logo-icon {
+    width: 2rem;
+    height: 2rem;
+    color: var(--color-accent-gold);
+}
+
+.brand-text {
+    font-family: var(--font-titles);
+    font-weight: 800;
+    font-size: 1.4rem;
+    color: var(--color-brown-dark);
+    letter-spacing: 0.5px;
+}
+
+.brand-text span {
+    color: var(--color-accent-gold);
+}
+
+.login-header h2 {
+    font-size: 1.65rem;
+    font-weight: 800;
+    color: var(--color-brown-dark);
+    margin-bottom: 0.5rem;
+}
+
+.login-header p {
+    font-size: 0.9rem;
+    color: var(--color-brown-medium);
+    line-height: 1.4;
+}
+
+.login-form {
+    text-align: left;
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    color: var(--color-brown-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.input-wrapper input {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: var(--color-brown-dark);
+    background-color: var(--color-bg-primary);
+    border: 1px solid rgba(84, 55, 37, 0.15);
+    border-radius: var(--border-radius-sm);
+    transition: var(--transition-smooth);
+}
+
+.input-wrapper input:focus {
+    outline: none;
+    border-color: var(--color-accent-gold);
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(190, 128, 58, 0.15);
+}
+
+.error-message {
+    font-size: 0.75rem;
+    color: var(--color-danger);
+    font-weight: 600;
+    margin-top: 0.25rem;
+    display: none;
+}
+
+.form-group.has-error .error-message {
+    display: block;
+}
+
+.form-group.has-error .input-wrapper input {
+    border-color: var(--color-danger);
+    background-color: rgba(185, 28, 28, 0.02);
+}
+
+.form-feedback-error {
+    background-color: rgba(185, 28, 28, 0.08);
+    border-left: 3px solid var(--color-danger);
+    color: var(--color-danger);
+    padding: 0.75rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-radius: var(--border-radius-sm);
+    margin-bottom: 1.5rem;
+    display: none;
+}
+
+.btn-login {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, var(--color-accent-orange) 0%, var(--color-accent-orange-hover) 100%);
+    color: #ffffff;
+    font-family: var(--font-titles);
+    font-weight: 800;
+    font-size: 1.1rem;
+    border-radius: var(--border-radius-sm);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    box-shadow: 0 6px 15px rgba(217, 119, 6, 0.2);
+}
+
+.btn-login:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(217, 119, 6, 0.35);
+}
+
+.btn-arrow {
+    width: 1.25rem;
+    height: 1.25rem;
+    transition: var(--transition-smooth);
+}
+
+.btn-login:hover .btn-arrow {
+    transform: translateX(4px);
+}
+
+.login-footer {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(84, 55, 37, 0.08);
+}
+
+.login-footer p {
+    font-size: 0.8rem;
+    color: var(--color-brown-medium);
+}
+
+/* ==========================================================================
+   2. DASHBOARD WRAPPER
+   ========================================================================== */
+.dashboard-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--color-bg-primary);
+}
+
+/* Header */
+.dashboard-header {
+    background-color: #ffffff;
+    border-bottom: 1px solid rgba(84, 55, 37, 0.08);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+}
+
+.dashboard-header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0.85rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dashboard-title {
+    font-family: var(--font-titles);
+    font-weight: 800;
+    font-size: 1.2rem;
+    color: var(--color-brown-dark);
+    letter-spacing: -0.2px;
+}
+
+.header-user-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.user-greeting {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--color-brown-medium);
+}
+
+.btn-logout {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--color-brown-medium);
+    background-color: var(--color-bg-primary);
+    border: 1px solid rgba(84, 55, 37, 0.1);
+    padding: 0.4rem 0.8rem;
+    border-radius: var(--border-radius-sm);
+}
+
+.btn-logout:hover {
+    background-color: var(--color-danger);
+    color: #ffffff;
+    border-color: var(--color-danger);
+}
+
+.icon-logout {
+    width: 0.95rem;
+    height: 0.95rem;
+}
+
+/* Seção de Progresso */
+.progress-section {
+    padding: 2rem 0 1rem 0;
+}
+
+.progress-card {
+    background-color: #ffffff;
+    padding: 1.75rem;
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(84, 55, 37, 0.05);
+}
+
+.progress-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+@media(min-width: 768px) {
+    .progress-info {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+}
+
+.progress-text-group h2 {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--color-brown-dark);
+    margin-bottom: 0.25rem;
+}
+
+.progress-text-group p {
+    font-size: 0.9rem;
+    color: var(--color-brown-medium);
+}
+
+.progress-badge {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-brown-medium);
+    background-color: var(--color-bg-primary);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    white-space: nowrap;
+    align-self: flex-start;
+}
+
+.progress-badge span {
+    color: var(--color-accent-gold);
+    font-size: 1.15rem;
+    font-weight: 800;
+}
+
+.progress-bar-wrapper {
+    width: 100%;
+    height: 10px;
+    background-color: var(--color-bg-primary);
+    border-radius: 50px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background-color: var(--color-brown-medium);
+    border-radius: 50px;
+    transition: width 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Grid de Cards */
+.content-section {
+    padding: 1rem 0 3.5rem 0;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .content-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .content-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.content-card {
+    background-color: #ffffff;
+    border-radius: var(--border-radius-md);
+    border: 1px solid rgba(84, 55, 37, 0.05);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: var(--transition-smooth);
+    position: relative;
+}
+
+.content-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: rgba(213, 174, 134, 0.3);
+}
+
+.card-banner-wrapper {
+    width: 100%;
+    aspect-ratio: 16/10;
+    overflow: hidden;
+    background-color: var(--color-brown-dark);
+}
+
+.card-banner {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: var(--transition-smooth);
+}
+
+.content-card:hover .card-banner {
+    transform: scale(1.03);
+}
+
+.card-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.card-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1.35;
+    margin-bottom: 0.6rem;
+    color: var(--color-brown-dark);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    height: 2.7rem; /* Fixa altura para manter alinhamento */
+}
+
+.card-desc {
+    font-size: 0.85rem;
+    color: var(--color-brown-medium);
+    line-height: 1.45;
+    margin-bottom: 1.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    height: 3.6rem; /* Fixa altura */
+}
+
+.card-action-row {
+    margin-top: auto;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.btn-open-material {
+    flex: 1.1;
+    padding: 0.75rem 0.4rem;
+    background-color: var(--color-brown-dark);
+    color: #ffffff;
+    border-radius: var(--border-radius-sm);
+    font-family: var(--font-titles);
+    font-weight: 800;
+    font-size: 0.8rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid rgba(213, 174, 134, 0.15);
+    text-align: center;
+    white-space: nowrap;
+}
+
+.btn-open-material:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(41, 24, 13, 0.2);
+    text-decoration: none;
+    background-color: var(--color-brown-medium);
+}
+
+.icon-open {
+    width: 0.9rem;
+    height: 0.9rem;
+    flex-shrink: 0;
+}
+
+.btn-check-complete {
+    flex: 0.9;
+    padding: 0.75rem 0.4rem;
+    border: 1px solid rgba(84, 55, 37, 0.25);
+    color: var(--color-brown-medium);
+    border-radius: var(--border-radius-sm);
+    font-family: var(--font-titles);
+    font-weight: 700;
+    font-size: 0.8rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    background-color: #ffffff;
+    white-space: nowrap;
+}
+
+.btn-check-complete:hover {
+    background-color: var(--color-bg-primary);
+    border-color: var(--color-accent-gold);
+    color: var(--color-accent-gold);
+}
+
+.icon-checkmark {
+    width: 0.95rem;
+    height: 0.95rem;
+    display: none;
+    flex-shrink: 0;
+}
+
+/* Estado de card concluído */
+.content-card.is-completed {
+    border-color: rgba(21, 128, 61, 0.3);
+    box-shadow: 0 4px 12px rgba(21, 128, 61, 0.05);
+}
+
+.content-card.is-completed .btn-check-complete {
+    background-color: var(--color-success-bg);
+    border-color: var(--color-success);
+    color: var(--color-success);
+}
+
+.content-card.is-completed .btn-check-complete .icon-checkmark {
+    display: block;
+}
+
+.content-card.is-completed .btn-check-complete:hover {
+    opacity: 0.85;
+}
+
+/* ==========================================================================
+   3. ESTILOS DO CARD DO CERTIFICADO (CARD 5)
+   ========================================================================== */
+.certificate-card {
+    border: 2px dashed rgba(190, 128, 58, 0.3);
+}
+
+.certificate-card:hover {
+    border-color: var(--color-accent-gold);
+}
+
+.cert-state {
+    transition: var(--transition-smooth);
+}
+
+/* Cadeado e overlay do estado bloqueado */
+.locked-overlay {
+    text-align: center;
+    padding: 0.5rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.icon-lock {
+    width: 2.25rem;
+    height: 2.25rem;
+    color: rgba(84, 55, 37, 0.4);
+    margin-bottom: 0.75rem;
+}
+
+.lock-status {
+    width: 100%;
+    margin-top: 1rem;
+    background-color: rgba(84, 55, 37, 0.06);
+    color: var(--color-brown-medium);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 0.5rem;
+    border-radius: var(--border-radius-sm);
+    letter-spacing: 0.5px;
+}
+
+/* Formulário de emissão do certificado */
+.cert-form .form-group {
+    margin-bottom: 1rem;
+}
+
+.cert-form input {
+    width: 100%;
+    padding: 0.75rem 0.85rem;
+    font-family: inherit;
+    font-size: 0.85rem;
+    border-radius: var(--border-radius-sm);
+    border: 1px solid rgba(84, 55, 37, 0.2);
+    background-color: var(--color-bg-primary);
+    color: var(--color-brown-dark);
+}
+
+.cert-form input:focus {
+    outline: none;
+    border-color: var(--color-accent-gold);
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(190, 128, 58, 0.12);
+}
+
+.btn-generate-cert {
+    width: 100%;
+    padding: 0.85rem;
+    background-color: var(--color-accent-gold);
+    color: #ffffff;
+    font-family: var(--font-titles);
+    font-weight: 700;
+    font-size: 0.9rem;
+    border-radius: var(--border-radius-sm);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+}
+
+.btn-generate-cert:hover {
+    background-color: var(--color-brown-medium);
+    transform: translateY(-1px);
+}
+
+.icon-stamp {
+    width: 1.15rem;
+    height: 1.15rem;
+}
+
+/* Botão de certificado pronto */
+.btn-view-cert {
+    width: 100%;
+    padding: 0.9rem;
+    background: linear-gradient(135deg, var(--color-accent-orange) 0%, var(--color-accent-orange-hover) 100%);
+    color: #ffffff;
+    font-family: var(--font-titles);
+    font-weight: 800;
+    font-size: 0.95rem;
+    border-radius: var(--border-radius-sm);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 12px rgba(217, 119, 6, 0.2);
+}
+
+.btn-view-cert:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(217, 119, 6, 0.35);
+}
+
+.icon-eye {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+/* ==========================================================================
+   4. MODAL OVERLAY DO CERTIFICADO
+   ========================================================================== */
+.certificate-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(18, 12, 8, 0.85);
+    backdrop-filter: blur(12px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: var(--transition-smooth);
+    padding: 1.5rem;
+}
+
+.certificate-modal-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modal-content-container {
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    transform: scale(0.98);
+    transition: var(--transition-smooth);
+}
+
+.certificate-modal-overlay:not(.hidden) .modal-content-container {
+    transform: scale(1);
+}
+
+.btn-close-modal {
+    position: absolute;
+    top: -3.5rem;
+    right: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-close-modal:hover {
+    background-color: var(--color-danger);
+    border-color: var(--color-danger);
+}
+
+.btn-close-modal svg {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+/* Visualizador com Aspect Ratio do Certificado (3:2) */
+.certificate-preview-box {
+    width: 100%;
+    background-color: #0d0704;
+    border-radius: var(--border-radius-sm);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(213, 174, 134, 0.25);
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+}
+
+/* O canvas renderiza o certificado completo — sem overlay CSS necessário */
+#cert-preview-canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: #0d0704;
+}
+
+/* Botões do modal */
+.modal-action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    width: 100%;
+}
+
+@media(min-width: 480px) {
+    .modal-action-buttons {
+        flex-direction: row;
+        justify-content: center;
+    }
+}
+
+.btn-action-print {
+    padding: 0.85rem 1.75rem;
+    background-color: var(--color-brown-dark);
+    border: 1px solid rgba(213, 174, 134, 0.3);
+    color: #ffffff;
+    font-family: var(--font-titles);
+    font-weight: 700;
+    font-size: 0.95rem;
+    border-radius: var(--border-radius-sm);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.btn-action-print:hover {
+    background-color: var(--color-brown-medium);
+    border-color: var(--color-accent-gold);
+}
+
+.btn-action-png {
+    padding: 0.85rem 1.75rem;
+    background: linear-gradient(135deg, var(--color-accent-orange) 0%, var(--color-accent-orange-hover) 100%);
+    color: #ffffff;
+    font-family: var(--font-titles);
+    font-weight: 800;
+    font-size: 0.95rem;
+    border-radius: var(--border-radius-sm);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 10px rgba(217, 119, 6, 0.25);
+}
+
+.btn-action-png:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 16px rgba(217, 119, 6, 0.45);
+}
+
+.icon-action {
+    width: 1.15rem;
+    height: 1.15rem;
+}
+
+/* ==========================================================================
+   5. ESTILOS DE IMPRESSÃO (@media print)
+   ========================================================================== */
+.hidden-screen {
+    display: none !important;
+}
+
+@media print {
+    @page {
+        size: landscape;
+        margin: 0;
+    }
+    
+    html, body {
+        background-color: #ffffff !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        height: 100vh !important;
+        overflow: hidden !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+    
+    #app-container,
+    .certificate-modal-overlay,
+    canvas,
+    #app-container > * {
+        display: none !important;
+    }
+    
+    #certificate-print-container.hidden-screen {
+        display: block !important;
+    }
+    
+    #certificate-print-container {
+        display: block !important;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    #certificate-print-container img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: fill !important;
+    }
+}
