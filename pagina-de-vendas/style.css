@@ -1474,10 +1474,11 @@ button {
 }
 
 .highlight-underline {
-    border-bottom: 3.5px solid var(--color-accent-gold);
-    /* Sublinhado dourado espesso */
+    text-decoration: underline;
+    text-decoration-color: var(--color-accent-gold);
+    text-decoration-thickness: 3.5px;
+    text-underline-offset: -3px;
     font-weight: inherit;
-    padding-bottom: 0px;
     color: inherit;
     display: inline;
 }
