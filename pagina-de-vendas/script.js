@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnUpsellAccept) {
         btnUpsellAccept.addEventListener('click', () => {
             closeUpsell();
-            redirectToCheckout('https://ggcheckout.app/checkout/v2/PARZasW39xteFDYrd6HS');
+            redirectToCheckout('https://ggcheckout.app/checkout/v5/PARZasW39xteFDYrd6HS');
         });
     }
 
