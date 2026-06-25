@@ -4,3 +4,4 @@ chrome_temp_profile/
 node_modules/
 .tempmediaStorage/
 *.log
+prompt_configuracao.md
