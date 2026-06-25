@@ -45,10 +45,39 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Helper function to append UTM parameters to checkout URLs
+    function getCheckoutUrlWithUtms(baseUrl) {
+        let queryString = window.location.search;
+        
+        // Fallback to localStorage if no parameters in URL
+        if (!queryString || !queryString.includes('utm_')) {
+            const utms = [];
+            const keys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'src', 'sck'];
+            keys.forEach(key => {
+                const val = localStorage.getItem(key) || localStorage.getItem(`utmify_${key}`);
+                if (val) {
+                    utms.push(`${key}=${encodeURIComponent(val)}`);
+                }
+            });
+            if (utms.length > 0) {
+                queryString = '?' + utms.join('&');
+            }
+        }
+        
+        if (!queryString) return baseUrl;
+        const separator = baseUrl.includes('?') ? '&' : '?';
+        const cleanParams = queryString.startsWith('?') ? queryString.substring(1) : queryString;
+        return `${baseUrl}${separator}${cleanParams}`;
+    }
+
+    function redirectToCheckout(url) {
+        window.location.href = getCheckoutUrlWithUtms(url);
+    }
+
     // Redirect to Complete Plan directly
     if (btnComprarCompleto) {
         btnComprarCompleto.addEventListener('click', () => {
-            window.location.href = 'https://ggcheckout.app/checkout/v5/AyfdPHjP0tPFjTJoJA9E';
+            redirectToCheckout('https://ggcheckout.app/checkout/v5/AyfdPHjP0tPFjTJoJA9E');
         });
     }
 
@@ -61,14 +90,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnCloseUpsell) btnCloseUpsell.addEventListener('click', closeUpsell);
     if (btnUpsellDecline) btnUpsellDecline.addEventListener('click', () => {
         closeUpsell();
-        window.location.href = 'https://ggcheckout.app/checkout/v5/SjmRcTJUymFjpEDyvBHO';
+        redirectToCheckout('https://ggcheckout.app/checkout/v5/SjmRcTJUymFjpEDyvBHO');
     });
 
     // Modal Action: Accept Upsell
     if (btnUpsellAccept) {
         btnUpsellAccept.addEventListener('click', () => {
             closeUpsell();
-            window.location.href = 'https://ggcheckout.app/checkout/v2/PARZasW39xteFDYrd6HS';
+            redirectToCheckout('https://ggcheckout.app/checkout/v2/PARZasW39xteFDYrd6HS');
         });
     }
 
