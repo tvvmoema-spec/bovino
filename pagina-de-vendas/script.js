@@ -45,10 +45,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Trigger simulation of purchase on clicking Complete Plan directly
+    // Redirect to Complete Plan directly
     if (btnComprarCompleto) {
         btnComprarCompleto.addEventListener('click', () => {
-            simulateCheckout('Plano Completo', 27.90);
+            window.location.href = 'https://ggcheckout.app/checkout/v5/AyfdPHjP0tPFjTJoJA9E';
         });
     }
 
@@ -61,14 +61,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnCloseUpsell) btnCloseUpsell.addEventListener('click', closeUpsell);
     if (btnUpsellDecline) btnUpsellDecline.addEventListener('click', () => {
         closeUpsell();
-        simulateCheckout('Plano Básico (Oferta Recusada)', 10.00);
+        window.location.href = 'https://ggcheckout.app/checkout/v5/SjmRcTJUymFjpEDyvBHO';
     });
 
     // Modal Action: Accept Upsell
     if (btnUpsellAccept) {
         btnUpsellAccept.addEventListener('click', () => {
             closeUpsell();
-            simulateCheckout('Plano Completo Promocional', 17.90);
+            window.location.href = 'https://ggcheckout.app/checkout/v2/PARZasW39xteFDYrd6HS';
         });
     }
 
