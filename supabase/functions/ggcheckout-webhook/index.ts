@@ -113,7 +113,7 @@ serve(async (req) => {
 
                       <!-- Call to Action Button -->
                       <div style="text-align: center; margin: 35px 0 20px 0;">
-                        <a href="https://300tecnicasbovina.hyzencompra.shop/area-de-membros/" target="_blank" style="background-color: #1e3f20; color: #ffffff; padding: 14px 30px; text-decoration: none; font-weight: bold; border-radius: 6px; display: inline-block; font-size: 16px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                        <a href="https://www.tecnicasbovino.hyzencompra.shop/area-de-membros/" target="_blank" style="background-color: #1e3f20; color: #ffffff; padding: 14px 30px; text-decoration: none; font-weight: bold; border-radius: 6px; display: inline-block; font-size: 16px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
                           Acessar Área de Membros
                         </a>
                       </div>
@@ -121,8 +121,8 @@ serve(async (req) => {
                       <!-- Clickable link fallback -->
                       <p style="font-size: 12px; color: #64748b; text-align: center; margin-top: 25px; line-height: 1.4;">
                         Caso você não esteja conseguindo acessar apertando no botão acima, copie ou clique no link direto a seguir para acessar:<br>
-                        <a href="https://300tecnicasbovina.hyzencompra.shop/area-de-membros/" target="_blank" style="color: #1e3f20; text-decoration: underline; font-weight: 500;">
-                          https://300tecnicasbovina.hyzencompra.shop/area-de-membros/
+                        <a href="https://www.tecnicasbovino.hyzencompra.shop/area-de-membros/" target="_blank" style="color: #1e3f20; text-decoration: underline; font-weight: 500;">
+                          https://www.tecnicasbovino.hyzencompra.shop/area-de-membros/
                         </a>
                       </p>
                     </td>
