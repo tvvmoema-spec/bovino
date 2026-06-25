@@ -1,43 +1,73 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     /* ==========================================================================
+       INICIALIZAÇÃO DO SUPABASE
+       ========================================================================== */
+    const SUPABASE_URL = "https://zexvwhhmxvjlbnksgjkr.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpleHZ3aGhteHZqbGJua3NnamtyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI0MTE0MzksImV4cCI6MjA5Nzk4NzQzOX0.hUCNqjqSi7haGBHRPTFhkYdAMmuDXwQOxDUwNx9QcXk";
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    /* ==========================================================================
        ESTADOS DA APLICAÇÃO & PERSISTÊNCIA
        ========================================================================== */
     const STATE = {
         get isLoggedIn() {
             return sessionStorage.getItem('bovino_user_logged_in') === 'true';
         },
-        login() {
+        login(memberData) {
             sessionStorage.setItem('bovino_user_logged_in', 'true');
+            sessionStorage.setItem('bovino_member_data', JSON.stringify(memberData));
         },
         logout() {
             sessionStorage.removeItem('bovino_user_logged_in');
+            sessionStorage.removeItem('bovino_member_data');
+        },
+        get memberData() {
+            try {
+                return JSON.parse(sessionStorage.getItem('bovino_member_data')) || null;
+            } catch (e) {
+                return null;
+            }
         },
         get completedMaterials() {
+            const member = this.memberData;
+            if (!member) return [];
             try {
-                return JSON.parse(localStorage.getItem('bovino_completed_materials')) || [];
+                return JSON.parse(localStorage.getItem(`bovino_completed_materials_${member.email}`)) || [];
             } catch (e) {
                 return [];
             }
         },
         setCompletedMaterials(list) {
-            localStorage.setItem('bovino_completed_materials', JSON.stringify(list));
+            const member = this.memberData;
+            if (member) {
+                localStorage.setItem(`bovino_completed_materials_${member.email}`, JSON.stringify(list));
+            }
         },
         get certificateName() {
-            return localStorage.getItem('bovino_certificate_name') || '';
+            const member = this.memberData;
+            return member ? (member.certificate_name || '') : '';
         },
         setCertificateName(name) {
-            localStorage.setItem('bovino_certificate_name', name);
+            const member = this.memberData;
+            if (member) {
+                member.certificate_name = name;
+                sessionStorage.setItem('bovino_member_data', JSON.stringify(member));
+            }
         },
         get certificateDate() {
-            let date = localStorage.getItem('bovino_certificate_date');
-            if (!date) {
-                const today = new Date();
-                const dd   = String(today.getDate()).padStart(2, '0');
-                const mm   = String(today.getMonth() + 1).padStart(2, '0');
-                const yyyy = today.getFullYear();
-                date = `${dd}/${mm}/${yyyy}`;
-                localStorage.setItem('bovino_certificate_date', date);
+            const member = this.memberData;
+            if (member && member.certificate_date) {
+                return member.certificate_date;
+            }
+            const today = new Date();
+            const dd   = String(today.getDate()).padStart(2, '0');
+            const mm   = String(today.getMonth() + 1).padStart(2, '0');
+            const yyyy = today.getFullYear();
+            const date = `${dd}/${mm}/${yyyy}`;
+            if (member) {
+                member.certificate_date = date;
+                sessionStorage.setItem('bovino_member_data', JSON.stringify(member));
             }
             return date;
         }
@@ -85,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (loginForm) {
         loginForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            const emailValue = emailInput.value.trim();
+            const emailValue = emailInput.value.trim().toLowerCase();
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailValue || !emailRegex.test(emailValue)) {
                 emailInput.closest('.form-group').classList.add('has-error');
@@ -96,14 +126,33 @@ document.addEventListener('DOMContentLoaded', () => {
             btnSubmitLogin.disabled = true;
             btnSubmitLogin.querySelector('span').innerText = 'Verificando...';
 
-            setTimeout(() => {
-                STATE.login();
-                loginFeedback.style.display = 'none';
-                loginForm.reset();
-                btnSubmitLogin.disabled = false;
-                btnSubmitLogin.querySelector('span').innerText = 'Acessar Área de Membros';
-                window.location.hash = '#/dashboard';
-            }, 1000);
+            supabase
+                .from('members')
+                .select('*')
+                .eq('email', emailValue)
+                .single()
+                .then(({ data, error }) => {
+                    btnSubmitLogin.disabled = false;
+                    btnSubmitLogin.querySelector('span').innerText = 'Acessar Área de Membros';
+
+                    if (error || !data) {
+                        loginFeedback.innerText = 'E-mail incorreto ou não cadastrado. Use seu e-mail de compra.';
+                        loginFeedback.style.display = 'block';
+                        return;
+                    }
+
+                    STATE.login(data);
+                    loginFeedback.style.display = 'none';
+                    loginForm.reset();
+                    window.location.hash = '#/dashboard';
+                })
+                .catch(err => {
+                    console.error('Erro na autenticação:', err);
+                    btnSubmitLogin.disabled = false;
+                    btnSubmitLogin.querySelector('span').innerText = 'Acessar Área de Membros';
+                    loginFeedback.innerText = 'Erro de conexão com o banco de dados. Tente novamente.';
+                    loginFeedback.style.display = 'block';
+                });
         });
 
         emailInput.addEventListener('input', () => {
@@ -133,6 +182,40 @@ document.addEventListener('DOMContentLoaded', () => {
     const studentNameDisplay = document.getElementById('student-name-display');
 
     function initDashboard() {
+        const member = STATE.memberData;
+        if (!member) {
+            STATE.logout();
+            window.location.hash = '#/login';
+            return;
+        }
+
+        // Atualiza saudação
+        const userGreeting = document.querySelector('.user-greeting');
+        if (userGreeting) {
+            userGreeting.innerText = `Olá, ${member.name}!`;
+        }
+
+        // Regras de Planos: Básico vs Completo
+        if (member.plan === 'Básico') {
+            // Oculta bônus, certificado e barra de progresso
+            document.getElementById('card-bonus-parasites')?.classList.add('hidden');
+            document.getElementById('card-bonus-plants')?.classList.add('hidden');
+            document.getElementById('card-bonus-breeds')?.classList.add('hidden');
+            document.getElementById('card-certificate')?.classList.add('hidden');
+            
+            const progressSection = document.querySelector('.progress-section');
+            if (progressSection) progressSection.classList.add('hidden');
+        } else {
+            // Plano Completo: Exibe todos os bônus e o certificado
+            document.getElementById('card-bonus-parasites')?.classList.remove('hidden');
+            document.getElementById('card-bonus-plants')?.classList.remove('hidden');
+            document.getElementById('card-bonus-breeds')?.classList.remove('hidden');
+            document.getElementById('card-certificate')?.classList.remove('hidden');
+            
+            const progressSection = document.querySelector('.progress-section');
+            if (progressSection) progressSection.classList.remove('hidden');
+        }
+
         const completed = STATE.completedMaterials;
         checkButtons.forEach(button => {
             const cardId = button.getAttribute('data-card-id');
@@ -161,7 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 completed.push(cardId);
                 card.classList.add('is-completed');
-                button.querySelector('.btn-check-text').innerText = 'Concluído';
+                button.querySelector('.btn-check-text').innerText = 'Concluí­do';
                 triggerConfettiExplosion();
             }
 
@@ -174,8 +257,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const total      = 4;
         const count      = completedList.length;
         const percentage = (count / total) * 100;
-        progressBarFill.style.width  = `${percentage}%`;
-        progressFraction.innerText   = `${count} de ${total}`;
+        if (progressBarFill) progressBarFill.style.width  = `${percentage}%`;
+        if (progressFraction) progressFraction.innerText   = `${count} de ${total}`;
         evaluateCertificateState(count);
     }
 
@@ -209,8 +292,10 @@ document.addEventListener('DOMContentLoaded', () => {
        ========================================================================== */
     const certificateNameForm = document.getElementById('certificate-name-form');
     const certFullNameInput   = document.getElementById('cert-full-name');
+    const btnSubmitCert       = document.getElementById('btn-submit-cert');
 
     function evaluateCertificateState(completedCount) {
+        if (!certStateLocked || !certStateForm || !certStateReady) return;
         certStateLocked.classList.add('hidden');
         certStateForm.classList.add('hidden');
         certStateReady.classList.add('hidden');
@@ -237,9 +322,41 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
             certFullNameInput.closest('.form-group').classList.remove('has-error');
-            STATE.setCertificateName(rawName);
-            triggerSuccessCelebration();
-            evaluateCertificateState(4);
+
+            const member = STATE.memberData;
+            if (!member) return;
+
+            btnSubmitCert.disabled = true;
+            btnSubmitCert.querySelector('span').innerText = 'Processando...';
+
+            const todayDate = STATE.certificateDate;
+
+            supabase
+                .from('members')
+                .update({ certificate_name: rawName, certificate_date: todayDate })
+                .eq('email', member.email)
+                .is('certificate_name', null)
+                .select()
+                .then(({ data, error }) => {
+                    btnSubmitCert.disabled = false;
+                    btnSubmitCert.querySelector('span').innerText = 'Emitir Meu Certificado';
+
+                    if (error || !data || data.length === 0) {
+                        alert('Não foi possível emitir o certificado. Verifique se ele já foi emitido.');
+                        return;
+                    }
+
+                    // Atualiza localmente
+                    STATE.setCertificateName(rawName);
+                    triggerSuccessCelebration();
+                    evaluateCertificateState(4);
+                })
+                .catch(err => {
+                    console.error('Erro ao emitir certificado:', err);
+                    btnSubmitCert.disabled = false;
+                    btnSubmitCert.querySelector('span').innerText = 'Emitir Meu Certificado';
+                    alert('Erro de conexão ao salvar certificado. Tente novamente.');
+                });
         });
 
         certFullNameInput.addEventListener('input', () => {
