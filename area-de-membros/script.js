@@ -216,6 +216,16 @@ document.addEventListener('DOMContentLoaded', () => {
             if (progressSection) progressSection.classList.remove('hidden');
         }
 
+        // Exibe orderbump se comprado
+        const hasMedsOB = member.orderbumps && member.orderbumps.some(title => 
+            title.toLowerCase().includes('medicamentos')
+        );
+        if (hasMedsOB) {
+            document.getElementById('card-ob-meds')?.classList.remove('hidden');
+        } else {
+            document.getElementById('card-ob-meds')?.classList.add('hidden');
+        }
+
         const completed = STATE.completedMaterials;
         checkButtons.forEach(button => {
             const cardId = button.getAttribute('data-card-id');
@@ -254,8 +264,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function updateProgressUI(completedList) {
-        const total      = 4;
-        const count      = completedList.length;
+        const coreIds = ['card-main-product', 'card-bonus-parasites', 'card-bonus-plants', 'card-bonus-breeds'];
+        const count = completedList.filter(id => coreIds.includes(id)).length;
+        const total = coreIds.length;
         const percentage = (count / total) * 100;
         if (progressBarFill) progressBarFill.style.width  = `${percentage}%`;
         if (progressFraction) progressFraction.innerText   = `${count} de ${total}`;
