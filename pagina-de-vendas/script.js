@@ -235,16 +235,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Small delay to ensure browser history stack is ready
     setTimeout(setupBackRedirect, 500);
 
-    // Desktop Exit Intent — fires when mouse leaves viewport toward browser chrome
+    // Desktop Exit Intent — only fires when mouse leaves toward browser chrome (top)
     let exitTriggered = false;
     document.addEventListener('mouseleave', (e) => {
-        // e.clientY <= 0 → mouse moved to top (address bar / tabs)
-        // Also catch rapid exit toward sides (clientX edge values)
-        const leftEdge = e.clientX <= 0;
-        const topEdge = e.clientY <= 0;
-        const rightEdge = e.clientX >= (document.documentElement.clientWidth || window.innerWidth);
-
-        if ((topEdge || leftEdge || rightEdge) && !exitTriggered) {
+        // Only trigger when mouse exits from the TOP (toward address bar / tabs)
+        if (e.clientY <= 0 && !exitTriggered) {
             exitTriggered = true;
             window.location.href = backRedirectUrl + window.location.search;
         }
