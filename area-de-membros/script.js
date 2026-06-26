@@ -226,6 +226,15 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('card-ob-meds')?.classList.add('hidden');
         }
 
+        const hasFirstAidOB = member.orderbumps && member.orderbumps.some(title => 
+            title.toLowerCase().includes('socorros') || title.toLowerCase().includes('primeiros')
+        );
+        if (hasFirstAidOB) {
+            document.getElementById('card-ob-first-aid')?.classList.remove('hidden');
+        } else {
+            document.getElementById('card-ob-first-aid')?.classList.add('hidden');
+        }
+
         const completed = STATE.completedMaterials;
         checkButtons.forEach(button => {
             const cardId = button.getAttribute('data-card-id');
@@ -278,6 +287,13 @@ document.addEventListener('DOMContentLoaded', () => {
         );
         if (hasMedsOB) {
             ids.push('card-ob-meds');
+        }
+
+        const hasFirstAidOB = member.orderbumps && member.orderbumps.some(title => 
+            title.toLowerCase().includes('socorros') || title.toLowerCase().includes('primeiros')
+        );
+        if (hasFirstAidOB) {
+            ids.push('card-ob-first-aid');
         }
         
         return ids;
