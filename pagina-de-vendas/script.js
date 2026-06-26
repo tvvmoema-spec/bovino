@@ -227,7 +227,9 @@ document.addEventListener('DOMContentLoaded', () => {
         history.pushState(null, document.title, location.href);
         
         window.addEventListener('popstate', () => {
-            // Redirect to /back retaining all UTMs/query parameters
+            // Hash link clicks (href="#planos") also fire popstate.
+            // Only redirect on real back navigation (URL has no hash).
+            if (location.hash !== '') return;
             window.location.replace(backRedirectUrl + window.location.search);
         });
     }
