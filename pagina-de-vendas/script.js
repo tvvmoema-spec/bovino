@@ -216,4 +216,37 @@ document.addEventListener('DOMContentLoaded', () => {
         // Update timer every second
         setInterval(updateTimer, 1000);
     }
+
+    /* ==========================================================================
+       BACK REDIRECT & EXIT INTENT LOGIC
+       ========================================================================== */
+    const backRedirectUrl = '/back/';
+
+    function setupBackRedirect() {
+        // Push state to history to capture back action
+        history.pushState(null, document.title, location.href);
+        
+        window.addEventListener('popstate', () => {
+            // Redirect to /back retaining all UTMs/query parameters
+            window.location.replace(backRedirectUrl + window.location.search);
+        });
+    }
+
+    // Small delay to ensure browser history stack is ready
+    setTimeout(setupBackRedirect, 500);
+
+    // Desktop Exit Intent — fires when mouse leaves viewport toward browser chrome
+    let exitTriggered = false;
+    document.addEventListener('mouseleave', (e) => {
+        // e.clientY <= 0 → mouse moved to top (address bar / tabs)
+        // Also catch rapid exit toward sides (clientX edge values)
+        const leftEdge = e.clientX <= 0;
+        const topEdge = e.clientY <= 0;
+        const rightEdge = e.clientX >= (document.documentElement.clientWidth || window.innerWidth);
+
+        if ((topEdge || leftEdge || rightEdge) && !exitTriggered) {
+            exitTriggered = true;
+            window.location.href = backRedirectUrl + window.location.search;
+        }
+    });
 });
