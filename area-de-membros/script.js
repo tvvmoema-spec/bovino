@@ -263,14 +263,34 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    function getAvailableMaterialIds() {
+        const member = STATE.memberData;
+        if (!member) return [];
+        
+        const ids = ['card-main-product'];
+        
+        if (member.plan !== 'Básico') {
+            ids.push('card-bonus-parasites', 'card-bonus-plants', 'card-bonus-breeds');
+        }
+        
+        const hasMedsOB = member.orderbumps && member.orderbumps.some(title => 
+            title.toLowerCase().includes('medicamentos')
+        );
+        if (hasMedsOB) {
+            ids.push('card-ob-meds');
+        }
+        
+        return ids;
+    }
+
     function updateProgressUI(completedList) {
-        const coreIds = ['card-main-product', 'card-bonus-parasites', 'card-bonus-plants', 'card-bonus-breeds'];
-        const count = completedList.filter(id => coreIds.includes(id)).length;
-        const total = coreIds.length;
-        const percentage = (count / total) * 100;
+        const availableIds = getAvailableMaterialIds();
+        const count = completedList.filter(id => availableIds.includes(id)).length;
+        const total = availableIds.length;
+        const percentage = total > 0 ? (count / total) * 100 : 0;
         if (progressBarFill) progressBarFill.style.width  = `${percentage}%`;
         if (progressFraction) progressFraction.innerText   = `${count} de ${total}`;
-        evaluateCertificateState(count);
+        evaluateCertificateState(count, total);
     }
 
     function triggerConfettiExplosion() {
@@ -305,13 +325,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const certFullNameInput   = document.getElementById('cert-full-name');
     const btnSubmitCert       = document.getElementById('btn-submit-cert');
 
-    function evaluateCertificateState(completedCount) {
+    function evaluateCertificateState(completedCount, totalCount = 4) {
         if (!certStateLocked || !certStateForm || !certStateReady) return;
         certStateLocked.classList.add('hidden');
         certStateForm.classList.add('hidden');
         certStateReady.classList.add('hidden');
 
-        if (completedCount < 4) {
+        // Atualiza dinamicamente as legendas do certificado
+        const lockStatusEl = certStateLocked.querySelector('.lock-status');
+        if (lockStatusEl) {
+            lockStatusEl.innerText = `Bloqueado (Complete ${totalCount}/${totalCount} materiais)`;
+        }
+        const cardDescEl = certStateLocked.querySelector('.card-desc');
+        if (cardDescEl) {
+            cardDescEl.innerText = `Complete a leitura e o monitoramento dos ${totalCount} materiais anteriores para habilitar a emissão do seu certificado.`;
+        }
+
+        if (completedCount < totalCount) {
             certStateLocked.classList.remove('hidden');
         } else {
             const savedName = STATE.certificateName;
@@ -360,7 +390,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Atualiza localmente
                     STATE.setCertificateName(rawName);
                     triggerSuccessCelebration();
-                    evaluateCertificateState(4);
+                    updateProgressUI(STATE.completedMaterials);
                 })
                 .catch(err => {
                     console.error('Erro ao emitir certificado:', err);
