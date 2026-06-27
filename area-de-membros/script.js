@@ -235,6 +235,15 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('card-ob-first-aid')?.classList.add('hidden');
         }
 
+        const hasNutritionOB = member.orderbumps && member.orderbumps.some(title => 
+            title.toLowerCase().includes('nutrição') || title.toLowerCase().includes('nutricional') || title.toLowerCase().includes('nutrition')
+        );
+        if (hasNutritionOB) {
+            document.getElementById('card-ob-nutrition')?.classList.remove('hidden');
+        } else {
+            document.getElementById('card-ob-nutrition')?.classList.add('hidden');
+        }
+
         const completed = STATE.completedMaterials;
         checkButtons.forEach(button => {
             const cardId = button.getAttribute('data-card-id');
@@ -294,6 +303,13 @@ document.addEventListener('DOMContentLoaded', () => {
         );
         if (hasFirstAidOB) {
             ids.push('card-ob-first-aid');
+        }
+
+        const hasNutritionOB = member.orderbumps && member.orderbumps.some(title => 
+            title.toLowerCase().includes('nutrição') || title.toLowerCase().includes('nutricional') || title.toLowerCase().includes('nutrition')
+        );
+        if (hasNutritionOB) {
+            ids.push('card-ob-nutrition');
         }
         
         return ids;
