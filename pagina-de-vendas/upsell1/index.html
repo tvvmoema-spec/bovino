@@ -6,219 +6,468 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- SEO Meta Tags -->
-    <title>Oferta Exclusiva: +250 Doenças em Suínos, Aves, Ovinos e Caprinos</title>
+    <title>Oferta Exclusiva de Boas-Vindas | +250 Doenças em Suínos, Aves, Ovinos e Caprinos</title>
+    <meta name="description" content="Oportunidade especial de boas-vindas! Adicione o manual ilustrado de doenças multiespécies com preço reduzido.">
     <meta name="robots" content="noindex, nofollow">
 
-    <!-- Google Fonts: Outfit (Titles) & Plus Jakarta Sans (Body) -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Utmify Pixel -->
     <script>
-      window.pixelId = "6a3da62dc4a625750f1079de";
-      var a = document.createElement("script");
-      a.setAttribute("async", "");
-      a.setAttribute("defer", "");
-      a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
-      document.head.appendChild(a);
+        window.pixelId = "6a3da62dc4a625750f1079de";
+        var a = document.createElement("script");
+        a.setAttribute("async", "");
+        a.setAttribute("defer", "");
+        a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
+        document.head.appendChild(a);
+    </script>
+
+    <!-- Meta Pixel Code -->
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+            n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '994840403415628');
+        fbq('track', 'PageView');
     </script>
 
     <style>
+        /* ==========================================================================
+           DESIGN SYSTEM — Green Theme Adaptation of back redirect
+           ========================================================================== */
         :root {
-            --color-bg-primary: #f2f7f4;      /* Fundo verde-bege muito suave */
+            --color-bg-primary: #f2f7f4;
             --color-bg-card: #ffffff;
-            --color-green-dark: #06290E;     /* Verde profundo do Upsell */
-            --color-green-medium: #14532d;   /* Verde floresta */
-            --color-accent-gold: #be803a;     /* Tom de ouro rústico */
-            --color-accent-orange: #d97706;   /* Laranja de alta conversão (CTA) */
+            --color-green-dark: #06290E;
+            --color-green-medium: #14532d;
+            --color-accent-green: #10b981;
+            --color-accent-green-hover: #059669;
             --color-success: #15803d;
             --color-danger: #b91c1c;
             --font-titles: 'Outfit', sans-serif;
             --font-body: 'Plus Jakarta Sans', sans-serif;
-            --shadow-md: 0 8px 24px rgba(6, 41, 14, 0.08);
-            --shadow-lg: 0 16px 32px rgba(6, 41, 14, 0.15);
-            --shadow-glow: 0 0 25px rgba(21, 128, 61, 0.25);
-            --border-radius-md: 16px;
-            --transition-smooth: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --shadow-sm: 0 2px 5px rgba(6,41,14,.05);
+            --shadow-md: 0 8px 16px rgba(6,41,14,.08);
+            --shadow-lg: 0 16px 32px rgba(6,41,14,.15);
+            --shadow-glow: 0 0 25px rgba(16,185,129,.35);
+            --transition: all 0.25s cubic-bezier(.25,.8,.25,1);
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
         }
 
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html { scroll-behavior: smooth; font-size: 15px; }
 
         body {
             font-family: var(--font-body);
             background-color: #031306;
             background-image: radial-gradient(circle at center, #0a3614 0%, #020b04 100%);
             background-attachment: fixed;
-            color: #ffffff;
+            color: var(--color-green-dark);
             line-height: 1.5;
             -webkit-font-smoothing: antialiased;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            padding: 1.5rem 1rem;
+
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
 
-        .upsell-wrapper {
-            max-width: 580px;
-            width: 100%;
-            background-color: var(--color-bg-primary);
-            color: #333333;
-            border-radius: var(--border-radius-md);
-            box-shadow: var(--shadow-lg);
-            overflow: hidden;
-            border: 2px solid rgba(255, 255, 255, 0.08);
-            margin-bottom: 2rem;
+        /* Screen capture shield */
+        #print-shield-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #000000 !important;
+            z-index: 99999999;
         }
 
-        /* Scarcity Top Bar */
-        .scarcity-bar {
-            background-color: #ffebd8;
-            color: #7c2d12;
-            border-bottom: 3px solid #ea580c;
-            padding: 1rem;
-            text-align: center;
-            font-size: 0.875rem;
+        @media print {
+            #print-shield-overlay { display: block !important; }
+            body * { visibility: hidden !important; }
+            #print-shield-overlay * { visibility: visible !important; }
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-titles);
+            color: var(--color-green-dark);
             font-weight: 700;
         }
 
-        .scarcity-alert {
+        a { color: inherit; text-decoration: none; }
+        button { font-family: inherit; border: none; background: none; cursor: pointer; }
+
+        .app-wrapper {
+            width: 100%;
+            max-width: 460px;
+            margin: 0 auto;
+            background-color: var(--color-bg-primary);
+            box-shadow: 0 0 60px rgba(0,0,0,.6);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container { width: 100%; padding: 0 1.25rem; }
+
+        /* ==========================================================================
+           FIXED SCARCITY BAR
+           ========================================================================== */
+        .scarcity-bar-fixed {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 460px;
+            z-index: 1000;
+            background-color: var(--color-green-dark);
+            color: #faf7f0;
+            padding: 0.6rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+            border-bottom: 2.5px solid var(--color-accent-green);
+            box-shadow: 0 4px 15px rgba(0,0,0,.4);
+            text-align: center;
+        }
+
+        .scarcity-bar-label {
             font-family: var(--font-titles);
-            display: block;
+            font-weight: 800;
+            font-size: 0.68rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,.85);
+        }
+
+        .scarcity-bar-label strong {
+            color: #4ade80;
+        }
+
+        .scarcity-timer-fixed {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.2rem;
+            font-family: var(--font-titles);
+            font-weight: 900;
+            font-size: 1.3rem;
+            color: #4ade80;
+            letter-spacing: 1px;
+        }
+
+        .scarcity-timer-fixed span.sep { opacity: 0.6; animation: blink-sep 1s infinite; }
+
+        @keyframes blink-sep {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 0.1; }
+        }
+
+        /* ==========================================================================
+           WELCOME & CONGRATS BANNER (top of page)
+           ========================================================================== */
+        .attention-banner {
+            background: linear-gradient(135deg, #06290E 0%, #0d3817 100%);
+            color: #ffffff;
+            text-align: center;
+            padding: 5rem 1.25rem 2.25rem; /* extra top padding for fixed timer */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .attention-banner::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 20px,
+                rgba(16,185,129,.04) 20px,
+                rgba(16,185,129,.04) 40px
+            );
+        }
+
+        .attention-badge {
+            display: inline-block;
+            background-color: var(--color-accent-green);
+            color: #ffffff;
+            font-family: var(--font-titles);
+            font-weight: 800;
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 0.35rem 0.9rem;
+            border-radius: 50px;
+            margin-bottom: 1rem;
+            animation: pulse-badge 2s infinite;
+        }
+
+        @keyframes pulse-badge {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(16,185,129,.5); }
+            50% { box-shadow: 0 0 0 8px rgba(16,185,129,.0); }
+        }
+
+        .attention-title {
+            font-family: var(--font-titles);
+            font-size: 1.65rem;
+            font-weight: 800;
+            color: #ffffff;
+            line-height: 1.2;
+            margin-bottom: 0.75rem;
+        }
+
+        .attention-title em {
+            color: #4ade80;
+            font-style: normal;
+        }
+
+        .attention-subtitle {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,.75);
+            line-height: 1.5;
+            max-width: 360px;
+            margin: 0 auto;
+        }
+
+        /* ==========================================================================
+           PRICE REDUCTION HIGHLIGHT
+           ========================================================================== */
+        .price-drop-strip {
+            background: linear-gradient(90deg, var(--color-accent-green), #059669);
+            padding: 0.75rem 1.25rem;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .price-drop-strip .drop-label {
+            font-family: var(--font-titles);
+            font-weight: 800;
+            font-size: 0.75rem;
+            color: #ffffff;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .price-drop-strip .drop-prices {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .price-drop-strip .old-p {
+            font-family: var(--font-titles);
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,.65);
+            text-decoration: line-through;
+        }
+
+        .price-drop-strip .arrow-icon {
+            color: #ffffff;
+            font-size: 1rem;
+        }
+
+        .price-drop-strip .new-p {
+            font-family: var(--font-titles);
+            font-weight: 900;
+            font-size: 1.1rem;
+            color: #ffffff;
+        }
+
+        /* ==========================================================================
+           PRICING SECTION
+           ========================================================================== */
+        .pricing-section {
+            padding: 2.25rem 0;
+            background-color: var(--color-bg-card);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 2.25rem;
+        }
+
+        .section-tag {
+            display: inline-block;
+            font-family: var(--font-titles);
+            font-weight: 700;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            color: var(--color-success);
+            text-transform: uppercase;
             margin-bottom: 0.5rem;
-            color: #c2410c;
-            letter-spacing: 0.5px;
+        }
+
+        .section-title {
+            font-size: 1.85rem;
+            line-height: 1.2;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight-underline {
+            background-image: linear-gradient(var(--color-accent-green), var(--color-accent-green));
+            background-position: 0 92%;
+            background-size: 100% 3.5px;
+            background-repeat: no-repeat;
+            font-weight: inherit;
+            color: inherit;
+            display: inline;
+        }
+
+        /* Countdown in pricing */
+        .countdown-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 1.25rem;
+            width: 100%;
+        }
+
+        .countdown-label {
+            font-family: var(--font-titles);
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--color-green-medium);
+            letter-spacing: 1px;
+            margin-bottom: 0.85rem;
             text-transform: uppercase;
         }
 
         .countdown-timer {
-            display: inline-flex;
+            display: flex;
             align-items: center;
-            gap: 0.5rem;
-            background-color: #ffedd5;
-            padding: 0.4rem 0.8rem;
-            border-radius: 6px;
-            border: 1px solid #fed7aa;
-            margin-top: 0.25rem;
+            justify-content: center;
+            gap: 0.65rem;
+        }
+
+        .timer-box {
+            background-color: var(--color-green-dark);
+            width: 4.5rem;
+            height: 4.5rem;
+            border-radius: var(--radius-md);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 15px rgba(6,41,14,.15);
         }
 
         .timer-num {
             font-family: var(--font-titles);
-            font-size: 1.1rem;
+            font-size: 1.75rem;
             font-weight: 800;
-            color: #c2410c;
+            color: #4ade80;
+            line-height: 1.1;
         }
 
-        /* Upsell Header */
-        .upsell-header {
-            padding: 2rem 1.5rem 1.5rem 1.5rem;
-            text-align: center;
-            background-color: var(--color-green-dark);
-            color: #ffffff;
-            border-bottom: 5px solid var(--color-accent-gold);
-            position: relative;
-        }
-
-        .offer-tag {
-            background-color: var(--color-accent-gold);
-            color: #ffffff;
-            font-family: var(--font-titles);
-            font-size: 0.75rem;
-            font-weight: 800;
-            padding: 0.3rem 0.8rem;
-            border-radius: 50px;
+        .timer-label {
+            font-size: 0.5rem;
+            font-weight: 700;
+            color: rgba(255,255,255,.8);
+            letter-spacing: 0.5px;
+            margin-top: 0.1rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            display: inline-block;
-            margin-bottom: 0.75rem;
         }
 
-        .upsell-title {
-            font-family: var(--font-titles);
+        .timer-colon {
             font-size: 1.5rem;
             font-weight: 800;
-            line-height: 1.25;
-            max-width: 480px;
-            margin: 0 auto;
+            color: var(--color-green-dark);
+            animation: blink-colon 1s infinite;
         }
 
-        .upsell-subtitle {
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.8);
-            margin-top: 0.5rem;
+        @keyframes blink-colon {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
         }
 
-        /* Pricing Card */
+        /* ==========================================================================
+           PRICING CARD
+           ========================================================================== */
         .price-card {
-            background-color: #ffffff;
-            border: 3px solid var(--color-green-dark);
-            border-radius: 12px;
-            padding: 2rem 1.5rem;
-            margin: 1.5rem;
+            background-color: var(--color-bg-primary);
+            border: 2.5px solid var(--color-green-dark);
+            border-radius: var(--radius-md);
+            padding: 2.5rem 1.5rem;
             display: flex;
             flex-direction: column;
-            box-shadow: var(--shadow-md);
             position: relative;
+            transition: var(--transition);
+            box-shadow: var(--shadow-md);
         }
 
-        .price-card::after {
-            content: '';
+        .choice-tag {
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            border-radius: 8px;
-            border: 1px solid rgba(6, 41, 14, 0.08);
-            pointer-events: none;
-        }
-
-        .card-header-plan h3 {
+            top: -12px;
+            right: 20px;
+            background-color: var(--color-green-dark);
+            color: #ffffff;
             font-family: var(--font-titles);
-            font-size: 1.25rem;
             font-weight: 800;
-            color: var(--color-green-dark);
-            margin-bottom: 0.25rem;
-            text-transform: uppercase;
+            font-size: 0.65rem;
+            letter-spacing: 1px;
+            padding: 0.35rem 0.85rem;
+            border-radius: 50px;
         }
 
-        .card-subtitle-plan {
-            font-size: 0.8rem;
-            color: #555555;
-            margin-bottom: 1.25rem;
-        }
+        .card-header-plan { margin-bottom: 1.5rem; }
+        .card-header-plan h3 { font-size: 1.4rem; margin-bottom: 0.25rem; }
+        .card-subtitle-plan { font-size: 0.8rem; color: var(--color-green-medium); }
 
         .plan-price-wrapper {
             display: flex;
             align-items: baseline;
-            margin-bottom: 1.5rem;
-            color: var(--color-green-dark);
+            margin-bottom: 0.5rem;
         }
 
-        .currency {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-right: 0.15rem;
+        .old-price-line {
+            font-size: 0.85rem;
+            color: rgba(6,41,14,.55);
+            text-decoration: line-through;
+            margin-bottom: 1.25rem;
+            font-weight: 600;
         }
 
+        .currency { font-size: 1.1rem; font-weight: 700; margin-top: 0.4rem; margin-right: 0.2rem; }
         .price-val {
             font-family: var(--font-titles);
             font-size: 3.5rem;
             font-weight: 800;
             line-height: 1;
+            color: var(--color-success);
         }
-
-        .price-cents {
-            font-size: 1.25rem;
-            font-weight: 700;
-        }
-
+        .price-cents { font-size: 1.25rem; font-weight: 700; margin-top: 0.4rem; color: var(--color-success); }
         .price-period {
-            font-size: 0.85rem;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
             font-weight: 500;
-            color: #666666;
+            color: rgba(6,41,14,.6);
             margin-left: 0.35rem;
         }
 
@@ -226,192 +475,484 @@
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 0.85rem;
-            margin-bottom: 1.75rem;
+            gap: 1rem;
+            margin-bottom: 2.25rem;
         }
 
         .plan-features li {
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             gap: 0.6rem;
             font-size: 0.875rem;
-            color: #333333;
-            line-height: 1.35;
+            text-align: left;
         }
 
-        .feat-check {
-            width: 1.15rem;
-            height: 1.15rem;
-            color: var(--color-success);
-            flex-shrink: 0;
-            margin-top: 0.1rem;
+        .feat-check { width: 1.15rem; height: 1.15rem; color: var(--color-success); flex-shrink: 0; }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-titles);
+            font-weight: 800;
+            font-size: 1.1rem;
+            padding: 1.1rem;
+            width: 100%;
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.5px;
+            box-sizing: border-box;
         }
 
         .btn-cta {
-            background-color: #10b981;
-            background-image: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            background: linear-gradient(135deg, var(--color-accent-green) 0%, #047857 100%);
             color: #ffffff;
-            font-family: var(--font-titles);
-            font-size: 1.1rem;
-            font-weight: 800;
-            text-align: center;
-            padding: 1.1rem 1.5rem;
-            border: none;
-            border-radius: 8px;
+            box-shadow: var(--shadow-glow);
+            border: 1px solid rgba(255,255,255,.1);
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-            transition: var(--transition-smooth);
-            text-decoration: none;
-            display: block;
-            margin-top: 0.5rem;
+        }
+
+        .btn-cta::after {
+            content: '';
+            position: absolute;
+            top: -50%; left: -60%;
+            width: 30%; height: 200%;
+            background: rgba(255,255,255,.25);
+            transform: rotate(30deg);
+            animation: shine 3.5s infinite linear;
+        }
+
+        @keyframes shine {
+            0% { left: -60%; }
+            18% { left: 130%; }
+            100% { left: 130%; }
         }
 
         .btn-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45);
-            background-image: linear-gradient(135deg, #059669 0%, #047857 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 10px 20px rgba(16,185,129,.45);
         }
 
         .plan-security-note {
             display: flex;
-            justify-content: center;
             align-items: center;
-            gap: 0.4rem;
-            font-size: 0.75rem;
-            color: #777777;
+            justify-content: center;
+            gap: 0.35rem;
             margin-top: 0.75rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: rgba(6,41,14,.65);
         }
 
         .plan-security-note svg {
-            width: 0.85rem;
-            height: 0.85rem;
-            color: #888888;
+            width: 0.9rem; height: 0.9rem;
+            color: rgba(6,41,14,.55);
+            flex-shrink: 0;
         }
 
         /* Decline Button Link */
         .decline-link-wrapper {
             text-align: center;
-            padding: 0.5rem 1.5rem 2rem 1.5rem;
+            padding: 1.5rem 1rem 0.5rem;
         }
 
         .decline-link {
             font-size: 0.85rem;
-            color: #888888;
+            color: #666666;
             text-decoration: underline;
             cursor: pointer;
-            transition: var(--transition-smooth);
+            transition: var(--transition);
         }
 
         .decline-link:hover {
             color: var(--color-danger);
         }
+
+        /* ==========================================================================
+           GUARANTEE SECTION
+           ========================================================================== */
+        .guarantee-section {
+            padding: 2.25rem 0;
+            background-color: var(--color-bg-card);
+            border-top: 1px solid rgba(6,41,14,.05);
+            border-bottom: 1px solid rgba(6,41,14,.05);
+        }
+
+        .guarantee-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 0.5rem;
+            padding: 0 1.5rem;
+        }
+
+        .guarantee-icon-wrapper { display: flex; justify-content: center; align-items: center; margin-bottom: 1.25rem; }
+        .guarantee-custom-icon { width: 90px; height: 90px; filter: drop-shadow(0 4px 12px rgba(6,41,14,.08)); }
+
+        .guarantee-label {
+            font-family: var(--font-titles);
+            font-weight: 800;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            color: var(--color-success);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .guarantee-title {
+            font-family: var(--font-titles);
+            font-size: 2.1rem;
+            font-style: italic;
+            font-weight: 900;
+            color: var(--color-green-dark);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+        }
+
+        .guarantee-text {
+            font-family: var(--font-body);
+            font-size: 1.15rem;
+            color: #2b3a2f;
+            line-height: 1.7;
+            text-align: center;
+        }
+
+        /* ==========================================================================
+           FAQ
+           ========================================================================== */
+        .faq-section { padding: 2.25rem 0; }
+
+        .faq-list { display: flex; flex-direction: column; gap: 0.85rem; }
+
+        .faq-item {
+            background-color: var(--color-bg-card);
+            border: 1px solid rgba(6,41,14,.08);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .faq-item.active {
+            border-color: rgba(16,185,129,.35);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 1rem 1.15rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--color-green-dark);
+            gap: 0.75rem;
+            cursor: pointer;
+        }
+
+        .faq-toggle-icon {
+            width: 1.25rem; height: 1.25rem;
+            flex-shrink: 0;
+            color: var(--color-accent-green);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-toggle-icon { transform: rotate(180deg); }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+
+        .faq-item.active .faq-answer { max-height: 300px; }
+
+        .faq-answer-content {
+            padding: 0 1.15rem 1.1rem;
+            font-size: 0.88rem;
+            color: var(--color-green-medium);
+            line-height: 1.6;
+        }
+
+        /* ==========================================================================
+           FOOTER
+           ========================================================================== */
+        .main-footer {
+            background-color: var(--color-green-dark);
+            color: rgba(255,255,255,.65);
+            padding: 2rem 0;
+            margin-top: auto;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.25rem;
+            text-align: center;
+        }
+
+        .copyright {
+            font-size: 0.75rem;
+            line-height: 1.6;
+            max-width: 340px;
+        }
+
+        .footer-cta-btn {
+            background: linear-gradient(135deg, var(--color-accent-green) 0%, #047857 100%);
+            color: #ffffff;
+            font-size: 0.95rem;
+            padding: 0.9rem 1.5rem;
+            width: auto;
+            border-radius: var(--radius-sm);
+        }
+
+        .icon-arrow { width: 1.25rem; height: 1.25rem; margin-left: 0.5rem; }
     </style>
 </head>
 
 <body>
+    <!-- Escudo contra print screen -->
+    <div id="print-shield-overlay"></div>
 
-    <div class="upsell-wrapper">
-        
-        <!-- Scarcity Alert Bar -->
-        <div class="scarcity-bar">
-            <span class="scarcity-alert">⚠️ ATENÇÃO: NÃO FECHE OU ATUALIZE ESTA PÁGINA!</span>
-            Esta é uma oferta única apresentada exclusivamente nesta tela. Acesso ao material bovino garantido.
-            <div>
-                <div class="countdown-timer">
-                    <span>Oferta expira em:</span>
-                    <span class="timer-num" id="countdown">09:59</span>
-                </div>
+    <div class="app-wrapper">
+
+        <!-- ==================================================================
+             STICKY SCARCITY BAR
+             ================================================================== -->
+        <div class="scarcity-bar-fixed">
+            <span class="scarcity-bar-label">⚠️ NÃO FECHE ESTA PÁGINA: OFERTA <strong>ÚNICA</strong></span>
+            <div class="scarcity-timer-fixed">
+                <span id="back-minutes">09</span>
+                <span class="sep">:</span>
+                <span id="back-seconds">59</span>
             </div>
         </div>
 
-        <!-- Upsell Header -->
-        <div class="upsell-header">
-            <span class="offer-tag">Oportunidade Única</span>
-            <h1 class="upsell-title">
-                Adicione o Guia Multiespécies e Complete Seu Conhecimento
+        <!-- ==================================================================
+             WELCOME & CONGRATS BANNER
+             ================================================================== -->
+        <section class="attention-banner">
+            <div class="attention-badge">🎉 COMPRA CONFIRMADA & ACESSO LIBERADO!</div>
+            <h1 class="attention-title">
+                Seja Bem-Vindo! Parabéns pela sua compra!
             </h1>
-            <p class="upsell-subtitle">Identifique sinais clínicos e evite perdas graves também em suínos, aves, ovinos e caprinos.</p>
-        </div>
+            <p class="attention-subtitle">
+                Como agradecimento de boas-vindas, preparamos esta oportunidade especial. Somente hoje você pode garantir esta oferta exclusiva!
+            </p>
+        </section>
 
-        <!-- Green Pricing Card -->
-        <div class="price-card">
-            <div class="card-header-plan">
-                <h3>Acesso Especial</h3>
-                <p class="card-subtitle-plan">Condição exclusiva de upgrade de compra</p>
-            </div>
-            
-            <div class="plan-price-wrapper">
-                <span class="currency">R$</span>
-                <span class="price-val">15</span>
-                <span class="price-cents">,90</span>
-                <span class="price-period">/ pagamento único</span>
-            </div>
+        <main>
+            <!-- ==============================================================
+                 PRICING SECTION
+                 ============================================================== -->
+            <section class="pricing-section" id="upsell-oferta">
+                <div class="container">
+                    <div class="section-header">
+                        <span class="section-tag">OPORTUNIDADE EXCLUSIVA</span>
+                        <h2 class="section-title">Upgrade Especial de <span class="highlight-underline">Boas-Vindas</span></h2>
+                    </div>
 
-            <ul class="plan-features">
-                <li>
-                    <svg class="feat-check" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <!-- Single Pricing Card -->
+                    <div class="price-card">
+                        <div class="choice-tag">PREÇO EXCLUSIVO</div>
+                        <div class="card-header-plan">
+                            <h3>Guia Multiespécies Ilustrado</h3>
+                            <p class="card-subtitle-plan">Condição única apresentada apenas uma vez nesta tela</p>
+                        </div>
+                        <div class="plan-price-wrapper">
+                            <span class="currency">R$</span>
+                            <span class="price-val">15</span>
+                            <span class="price-cents">,90</span>
+                            <span class="price-period">/ pagamento único</span>
+                        </div>
+                        <p class="old-price-line">De R$ 39,90</p>
+                        
+                        <ul class="plan-features">
+                            <li>
+                                <svg class="feat-check" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <span><strong>Material +250 Materiais Ilustrados</strong> para Identificação de Doenças em Suínos, Aves, Ovinos e Caprinos</span>
+                            </li>
+                            <li>
+                                <svg class="feat-check" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <span><strong>Acesso Vitalício</strong> para consultar o guia onde e quando quiser</span>
+                            </li>
+                            <li>
+                                <svg class="feat-check" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <span><strong>Pagamento único</strong> sem taxas recorrentes ou mensalidades</span>
+                            </li>
+                        </ul>
+
+                        <button class="btn btn-cta" id="btn-buy-upsell">
+                            <span>SIM, QUERO ADICIONAR ESTE MATERIAL</span>
+                        </button>
+                        
+                        <div class="plan-security-note">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                            </svg>
+                            <span>Pagamento 100% criptografado e seguro</span>
+                        </div>
+                    </div>
+
+                    <!-- Decline Button Link -->
+                    <div class="decline-link-wrapper">
+                        <span class="decline-link" id="btn-decline-upsell">
+                            Não, obrigado. Recusar essa oportunidade e ir direto para a área de membros.
+                        </span>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ==============================================================
+                 GUARANTEE SECTION
+                 ============================================================== -->
+            <section class="guarantee-section">
+                <div class="container guarantee-container">
+                    <div class="guarantee-icon-wrapper">
+                        <svg viewBox="0 0 100 100" class="guarantee-custom-icon">
+                            <circle cx="50" cy="50" r="48" fill="rgba(22, 163, 74, 0.12)" />
+                            <path d="M50 67.5 S64 60.5 64 50 V37.75 L50 32.5 L36 37.75 V50 S36 60.5 50 67.5 Z" fill="var(--color-green-dark)" />
+                            <polyline points="43,49 48,54 57,44" fill="none" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <span class="guarantee-label">GARANTIA INCONDICIONAL</span>
+                    <h2 class="guarantee-title"><span class="highlight-underline">Garantia Risco Zero</span> de 7 Dias</h2>
+                    <p class="guarantee-text">
+                        Apoiamos totalmente nosso material. Se em até 7 dias você achar que o material multiespécies não é útil para você, devolvemos integralmente seu investimento.
+                    </p>
+                </div>
+            </section>
+
+            <!-- ==============================================================
+                 FAQ SECTION
+                 ============================================================== -->
+            <section class="faq-section" id="upsell-faq">
+                <div class="container">
+                    <div class="section-header">
+                        <span class="section-tag">DÚVIDAS</span>
+                        <h2 class="section-title"><span class="highlight-underline">Perguntas Frequentes</span></h2>
+                    </div>
+                    <div class="faq-list">
+                        <div class="faq-item">
+                            <button class="faq-question">
+                                <span>1. Como terei acesso ao material multiespécies?</span>
+                                <span class="faq-toggle-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </span>
+                            </button>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                                    Ao adicionar esta oferta, o material extra é liberado automaticamente na sua mesma Área de Membros. Você receberá um e-mail confirmando a liberação do manual multiespécies na sua conta.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <button class="faq-question">
+                                <span>2. Por que esta oferta custa apenas R$ 15,90?</span>
+                                <span class="faq-toggle-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </span>
+                            </button>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                                    Este é um preço promocional exclusivo de boas-vindas oferecido apenas para novos clientes no momento em que acabam de comprar o material bovino. Caso saia desta página, não será possível obtê-lo por este valor novamente.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <button class="faq-question">
+                                <span>3. O acesso a este material adicional também é vitalício?</span>
+                                <span class="faq-toggle-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    </svg>
+                                </span>
+                            </button>
+                            <div class="faq-answer">
+                                <div class="faq-answer-content">
+                                    Sim! O acesso a este manual é vitalício. Você pode consultá-lo quantas vezes desejar através de seu smartphone, tablet ou computador.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="main-footer">
+            <div class="container footer-container">
+                <a href="#upsell-oferta" class="btn footer-cta-btn">
+                    <span>QUERO APROVEITAR A OFERTA</span>
+                    <svg class="icon-arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
-                    <span><strong>Material +250 Materiais Ilustrados</strong> para Identificação de Doenças em Suínos, Aves, Ovinos e Caprinos</span>
-                </li>
-                <li>
-                    <svg class="feat-check" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                    <span><strong>Acesso Vitalício</strong> para consultas sempre que precisar</span>
-                </li>
-                <li>
-                    <svg class="feat-check" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                    <span><strong>Sem Mensalidades</strong> — taxa única de adesão</span>
-                </li>
-            </ul>
-
-            <button class="btn-cta" id="btn-buy-upsell">
-                SIM, QUERO ADICIONAR ESTE MATERIAL
-            </button>
-
-            <div class="plan-security-note">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                </svg>
-                <span>Pagamento 100% criptografado e seguro</span>
+                </a>
+                <p class="copyright">
+                    &copy; 2026 +300 Técnicas de Identificação de Doenças Bovinas Ilustradas. Todos os direitos reservados.
+                </p>
             </div>
-        </div>
+        </footer>
 
-        <!-- Decline Action Link -->
-        <div class="decline-link-wrapper">
-            <span class="decline-link" id="btn-decline-upsell">
-                Não, obrigado. Quero recusar essa oferta e acessar o material bovino.
-            </span>
-        </div>
+    </div><!-- /app-wrapper -->
 
-    </div>
-
-    <!-- Script to handle countdown and UTM parameter forwarding -->
+    <!-- Scripts -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             
             // 1. Countdown Timer (10 minutes)
             let time = 600; // 10 minutes in seconds
-            const countdownEl = document.getElementById('countdown');
+            const minutesEl = document.getElementById('back-minutes');
+            const secondsEl = document.getElementById('back-seconds');
             
             const timer = setInterval(() => {
                 const minutes = Math.floor(time / 60);
                 let seconds = time % 60;
-                seconds = seconds < 10 ? '0' + seconds : seconds;
-                countdownEl.innerText = `${minutes}:${seconds}`;
+                
+                minutesEl.innerText = minutes < 10 ? '0' + minutes : minutes;
+                secondsEl.innerText = seconds < 10 ? '0' + seconds : seconds;
                 
                 if (time <= 0) {
                     clearInterval(timer);
-                    countdownEl.innerText = "00:00";
+                    minutesEl.innerText = "00";
+                    secondsEl.innerText = "00";
                 }
                 time--;
             }, 1000);
 
-            // 2. UTM Parameter Extraction & Forwarding
+            // 2. FAQ Accordion
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+                    faqItems.forEach(i => i.classList.remove('active'));
+                    if (!isActive) {
+                        item.classList.add('active');
+                    }
+                });
+            });
+
+            // 3. UTM Parameter Extraction & Forwarding
             function getCheckoutUrlWithUtms(baseUrl) {
                 let queryString = window.location.search;
                 
@@ -459,7 +1000,6 @@
             });
         });
     </script>
-
 </body>
 
 </html>

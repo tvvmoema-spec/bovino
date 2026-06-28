@@ -36,20 +36,22 @@ serve(async (req) => {
     }
 
     // 3. Check if purchase is approved/paid to update member and send the email
+    const email = payload.customer?.email?.trim().toLowerCase()
+    const name = payload.customer?.name ?? 'Cliente'
     const event = payload.event
     const paymentStatus = payload.payment?.status
 
     if (email && (paymentStatus === 'paid' || event === 'pix.paid')) {
-      const email = payload.customer?.email?.trim().toLowerCase()
-      const name = payload.customer?.name ?? 'Cliente'
 
       // Gather all purchased titles in this payload
       const products = payload.products ?? []
       const purchasedTitles: string[] = []
       products.forEach((p: any) => {
-        if (p.title) purchasedTitles.push(p.title)
+        if (p.title && !purchasedTitles.includes(p.title)) {
+          purchasedTitles.push(p.title)
+        }
       })
-      if (payload.product?.title) {
+      if (payload.product?.title && !purchasedTitles.includes(payload.product.title)) {
         purchasedTitles.push(payload.product.title)
       }
 
@@ -205,7 +207,8 @@ serve(async (req) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${resendApiKey}`
+          "Authorization": "Bearer " + resendApiKey,
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
         },
         body: JSON.stringify({
           from: "Suporte <suporte@300tecnicasbovina.hyzencompra.shop>",
