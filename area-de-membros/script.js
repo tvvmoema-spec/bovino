@@ -244,6 +244,15 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('card-ob-nutrition')?.classList.add('hidden');
         }
 
+        const hasMultiespeciesOB = member.orderbumps && member.orderbumps.some(title => 
+            title.toLowerCase().includes('suínos') || title.toLowerCase().includes('aves') || title.toLowerCase().includes('doenças em')
+        );
+        if (hasMultiespeciesOB) {
+            document.getElementById('card-upsell-multiespecies')?.classList.remove('hidden');
+        } else {
+            document.getElementById('card-upsell-multiespecies')?.classList.add('hidden');
+        }
+
         const completed = STATE.completedMaterials;
         checkButtons.forEach(button => {
             const cardId = button.getAttribute('data-card-id');
@@ -310,6 +319,13 @@ document.addEventListener('DOMContentLoaded', () => {
         );
         if (hasNutritionOB) {
             ids.push('card-ob-nutrition');
+        }
+
+        const hasMultiespeciesOB = member.orderbumps && member.orderbumps.some(title => 
+            title.toLowerCase().includes('suínos') || title.toLowerCase().includes('aves') || title.toLowerCase().includes('doenças em')
+        );
+        if (hasMultiespeciesOB) {
+            ids.push('card-upsell-multiespecies');
         }
         
         return ids;

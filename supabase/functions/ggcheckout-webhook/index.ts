@@ -35,32 +35,90 @@ serve(async (req) => {
       })
     }
 
-    // 3. Check if purchase is approved/paid to send the email
+    // 3. Check if purchase is approved/paid to update member and send the email
     const event = payload.event
     const paymentStatus = payload.payment?.status
 
-    if (paymentStatus === 'paid' || event === 'pix.paid') {
+    if (email && (paymentStatus === 'paid' || event === 'pix.paid')) {
       const email = payload.customer?.email?.trim().toLowerCase()
       const name = payload.customer?.name ?? 'Cliente'
-      
-      // Determine Plan
-      let plan = 'Básico'
+
+      // Gather all purchased titles in this payload
       const products = payload.products ?? []
-      const mainProduct = products.find((p: any) => p.type === 'main') ?? payload.product
-      if (mainProduct && (mainProduct.title?.toLowerCase().includes('completo') || mainProduct.title?.toLowerCase().includes('full'))) {
-        plan = 'Completo'
+      const purchasedTitles: string[] = []
+      products.forEach((p: any) => {
+        if (p.title) purchasedTitles.push(p.title)
+      })
+      if (payload.product?.title) {
+        purchasedTitles.push(payload.product.title)
       }
 
-      // Extract Orderbumps
-      const orderbumps = products.filter((p: any) => p.type === 'orderbump').map((p: any) => p.title)
+      // Fetch the existing member to merge orderbumps and plan
+      const { data: member, error: memberError } = await supabaseClient
+        .from('members')
+        .select('*')
+        .eq('email', email)
+        .maybeSingle()
+
+      let updatedOrderbumps = member ? (member.orderbumps || []) : []
+      let updatedPlan = member ? (member.plan || 'Básico') : 'Básico'
+      let needsUpdate = false
+
+      purchasedTitles.forEach((title: string) => {
+        if (title.toLowerCase().includes('completo') || title.toLowerCase().includes('full')) {
+          if (updatedPlan !== 'Completo') {
+            updatedPlan = 'Completo'
+            needsUpdate = true
+          }
+        }
+        
+        // If it is not the main Bovino product, add to orderbumps list
+        const isCoreMain = title.toLowerCase().includes('300 técnicas') || title.toLowerCase().includes('doenças bovinas')
+        if (!isCoreMain) {
+          if (!updatedOrderbumps.includes(title)) {
+            updatedOrderbumps.push(title)
+            needsUpdate = true
+          }
+        }
+      })
+
+      if (member) {
+        if (needsUpdate) {
+          await supabaseClient
+            .from('members')
+            .update({ orderbumps: updatedOrderbumps, plan: updatedPlan })
+            .eq('email', email)
+        }
+      } else {
+        await supabaseClient
+          .from('members')
+          .insert([{
+            email,
+            name,
+            plan: updatedPlan,
+            orderbumps: updatedOrderbumps
+          }])
+      }
+
+      // Determine the plan description to show in email
+      const planToShow = updatedPlan
+
+      // Identify additional items purchased in this specific transaction for email display
+      const additionalItems: string[] = []
+      purchasedTitles.forEach((title: string) => {
+        const isCoreMain = title.toLowerCase().includes('300 técnicas') || title.toLowerCase().includes('doenças bovinas')
+        if (!isCoreMain) {
+          additionalItems.push(title)
+        }
+      })
 
       // 4. Send Email via Resend
       const resendApiKey = "re_2YRseCQB_QJQHKcTsdnANsESWpK12fTav"
       
       // Build orderbumps HTML cards if any
       let orderbumpHtml = ""
-      if (orderbumps.length > 0) {
-        orderbumps.forEach((bumpTitle: string) => {
+      if (additionalItems.length > 0) {
+        additionalItems.forEach((bumpTitle: string) => {
           orderbumpHtml += `
             <div style="margin: 20px 0; padding: 16px; background-color: #f4fbf6; border-left: 4px solid #10b981; border-radius: 0 8px 8px 0; color: #065f46; font-family: sans-serif; text-align: left;">
               <span style="font-size: 14px; font-weight: bold; display: block; margin-bottom: 4px;">🎉 MATERIAL ADICIONAL LIBERADO!</span>
@@ -99,7 +157,7 @@ serve(async (req) => {
                       <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; margin: 25px 0;">
                         <p style="margin: 0 0 10px 0;"><strong>Detalhes da Compra:</strong></p>
                         <ul style="margin: 0; padding-left: 20px; color: #475569;">
-                          <li><strong>Plano Adquirido:</strong> ${plan}</li>
+                          <li><strong>Plano Atual:</strong> ${planToShow}</li>
                           <li><strong>E-mail de Acesso:</strong> ${email}</li>
                         </ul>
                       </div>
@@ -152,7 +210,9 @@ serve(async (req) => {
         body: JSON.stringify({
           from: "Suporte <suporte@300tecnicasbovina.hyzencompra.shop>",
           to: email,
-          subject: "Seu acesso à Área de Membros - +300 Técnicas de Identificação de Doenças Bovinas",
+          subject: additionalItems.length > 0 && !purchasedTitles.some(t => t.toLowerCase().includes('300 técnicas'))
+            ? "🎉 Seu material adicional foi liberado! - Área de Membros"
+            : "Seu acesso à Área de Membros - +300 Técnicas de Identificação de Doenças Bovinas",
           html: htmlContent
         })
       })
