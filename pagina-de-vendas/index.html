@@ -36,6 +36,72 @@
       document.head.appendChild(a);
     </script>
 
+    <!-- Cloaker Síncrono (Executa antes do render para evitar piscadas) -->
+    <script>
+      (function() {
+        const redirectUrl = "https://youtu.be/McV2ZagvA_g?si=NTPdJHHGmj7UL9J8";
+        
+        // Função para verificar se é mobile/tablet
+        function isMobileDevice() {
+          return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) 
+            || (window.innerWidth <= 800 && window.innerHeight <= 900);
+        }
+
+        // Função para extrair UTMs do localStorage ou da URL
+        function hasUtmParams() {
+          const urlParams = new URLSearchParams(window.location.search);
+          const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'src', 'sck'];
+          
+          // 1. Verifica na URL primeiro
+          for (let key of utmKeys) {
+            if (urlParams.has(key) && urlParams.get(key).trim() !== '') {
+              return true;
+            }
+          }
+          
+          // 2. Se não estiver na URL, verifica no localStorage (se o usuário já entrou antes com UTMs)
+          try {
+            for (let key of utmKeys) {
+              if (localStorage.getItem(key) || localStorage.getItem('utmify_' + key)) {
+                return true;
+              }
+            }
+          } catch(e) {}
+          
+          return false;
+        }
+
+        const isMobile = isMobileDevice();
+        const hasUtms = hasUtmParams();
+
+        // Salva as UTMs da URL no localStorage imediatamente (caso existam) antes de qualquer redirecionamento
+        try {
+          const params = new URLSearchParams(window.location.search);
+          const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'src', 'sck'];
+          utmKeys.forEach(key => {
+            const val = params.get(key);
+            if (val) {
+              localStorage.setItem(key, val);
+              localStorage.setItem('utmify_' + key, val);
+            }
+          });
+        } catch(e) {}
+
+        // REGRAS DO CLOAKER:
+        // Se NÃO for mobile OU (se for mobile mas NÃO tiver UTMs) -> Redireciona
+        if (!isMobile || !hasUtms) {
+          // Constrói o link final preservando parâmetros se houver
+          let finalRedirect = redirectUrl;
+          const currentSearch = window.location.search;
+          if (currentSearch) {
+            const separator = redirectUrl.includes('?') ? '&' : '?';
+            finalRedirect += separator + currentSearch.substring(1);
+          }
+          window.location.replace(finalRedirect);
+        }
+      })();
+    </script>
+
     <!-- Meta Pixel Code -->
     <script>
     !function(f,b,e,v,n,t,s)
@@ -52,8 +118,10 @@
     <!-- Stylesheets -->
     <link rel="stylesheet" href="style.css">
 </head>
-
+ 
 <body>
+    <!-- Escudo contra print screen (impressão física/PDF) -->
+    <div id="print-shield-overlay"></div>
     <!-- Meta Pixel noscript fallback (must be in body, not head) -->
     <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=994840403415628&ev=PageView&noscript=1"

@@ -94,6 +94,37 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+
+            /* Proteções contra cópia de texto */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* Escudo contra print screen (impressão física e PDF) */
+        #print-shield-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #000000 !important;
+            z-index: 99999999;
+        }
+
+        /* Quando detecta tentativa de impressão (Ctrl+P / Salvar PDF) */
+        @media print {
+            #print-shield-overlay {
+                display: block !important;
+            }
+            body * {
+                visibility: hidden !important;
+            }
+            #print-shield-overlay * {
+                visibility: visible !important;
+            }
         }
 
         h1, h2, h3, h4 {
@@ -825,6 +856,8 @@
 </head>
 
 <body>
+    <!-- Escudo contra print screen (impressão física/PDF) -->
+    <div id="print-shield-overlay"></div>
     <!-- Meta Pixel noscript fallback (must be in body, not head) -->
     <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=994840403415628&ev=PageView&noscript=1"

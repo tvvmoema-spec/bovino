@@ -72,7 +72,39 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    
+    /* Proteções contra cópia de texto */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
+
+/* Escudo contra print screen (impressão física e PDF) */
+#print-shield-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000000 !important;
+    z-index: 99999999;
+}
+
+/* Quando detecta tentativa de impressão (Ctrl+P / Salvar PDF) */
+@media print {
+    #print-shield-overlay {
+        display: block !important;
+    }
+    body * {
+        visibility: hidden !important;
+    }
+    #print-shield-overlay * {
+        visibility: visible !important;
+    }
+}
+
 
 /* CONTAINER CENTRALIZADO (SIMULA TELA DE CELULAR NO DESKTOP) */
 .app-wrapper {

@@ -223,27 +223,108 @@ document.addEventListener('DOMContentLoaded', () => {
     const backRedirectUrl = '/back/';
 
     function setupBackRedirect() {
-        // Push state to history to capture back action
+        // Envia estado para o histórico para capturar ação de voltar
         history.pushState(null, document.title, location.href);
         
         window.addEventListener('popstate', () => {
-            // Hash link clicks (href="#planos") also fire popstate.
-            // Only redirect on real back navigation (URL has no hash).
             if (location.hash !== '') return;
             window.location.replace(backRedirectUrl + window.location.search);
         });
     }
 
-    // Small delay to ensure browser history stack is ready
     setTimeout(setupBackRedirect, 500);
 
-    // Desktop Exit Intent — only fires when mouse leaves toward browser chrome (top)
+    // Exit Intent no Desktop
     let exitTriggered = false;
     document.addEventListener('mouseleave', (e) => {
-        // Only trigger when mouse exits from the TOP (toward address bar / tabs)
         if (e.clientY <= 0 && !exitTriggered) {
             exitTriggered = true;
             window.location.href = backRedirectUrl + window.location.search;
         }
     });
+
+    /* ==========================================================================
+       PROTEÇÕES E SEGURANÇA DA PÁGINA (ANTI-CLONAGEM / ANTI-CÓPIA)
+       ========================================================================== */
+    
+    // 1. Bloqueia Clique com Botão Direito
+    document.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+    });
+
+    // 2. Bloqueia atalhos de Inspecionar Elemento (F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, Ctrl+S)
+    document.addEventListener('keydown', (e) => {
+        // F12
+        if (e.keyCode === 123) {
+            e.preventDefault();
+            return false;
+        }
+        // Ctrl+Shift+I ou Ctrl+Shift+J ou Ctrl+Shift+C
+        if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) {
+            e.preventDefault();
+            return false;
+        }
+        // Ctrl+U (Ver código-fonte)
+        if (e.ctrlKey && e.keyCode === 85) {
+            e.preventDefault();
+            return false;
+        }
+        // Ctrl+S (Salvar página)
+        if (e.ctrlKey && e.keyCode === 83) {
+            e.preventDefault();
+            return false;
+        }
+        // Ctrl+C / Ctrl+X (Impedir cópias por atalho se houver falhas no user-select)
+        if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 88)) {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    // 3. Proteção contra Print Screen (Escurecimento de Tela)
+    const printShield = document.getElementById('print-shield-overlay');
+
+    // Ao pressionar PrintScreen ou atalho de captura do Windows (Win+Shift+S)
+    // Nota: O evento keyup pode capturar a tecla 'PrintScreen' (código 44)
+    document.addEventListener('keyup', (e) => {
+        if (e.keyCode === 44 || e.key === 'PrintScreen') {
+            triggerScreenBlackout();
+        }
+    });
+
+    // Função para escurecer a tela temporariamente
+    function triggerScreenBlackout() {
+        if (printShield) {
+            printShield.style.display = 'block';
+            // Tenta copiar algo vazio ou aviso para a área de transferência para anular o print
+            navigator.clipboard.writeText("Aviso: Capturas de tela são bloqueadas nesta página.").catch(() => {});
+            
+            setTimeout(() => {
+                printShield.style.display = 'none';
+            }, 2500);
+        }
+    }
+
+    // Monitora o foco da janela: muitas ferramentas de print tiram o foco momentaneamente ou dependem de mudança de visibilidade
+    window.addEventListener('blur', () => {
+        // Se o usuário sair da página para usar ferramenta de captura, podemos colocar uma tela preta rápida
+        if (printShield) {
+            printShield.style.display = 'block';
+        }
+    });
+
+    window.addEventListener('focus', () => {
+        if (printShield) {
+            // Remove o blackout com um pequeno delay após a volta do foco
+            setTimeout(() => {
+                printShield.style.display = 'none';
+            }, 300);
+        }
+    });
+
+    // 4. Medida anti-HTTrack / Clonadores offline
+    // Se o site for aberto de um protocolo "file://" ou localhost com porta estranha que indique emulação offline, redireciona
+    if (window.location.protocol === 'file:') {
+        window.location.replace("https://youtu.be/McV2ZagvA_g?si=NTPdJHHGmj7UL9J8");
+    }
 });
