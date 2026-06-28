@@ -245,7 +245,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const hasMultiespeciesOB = member.orderbumps && member.orderbumps.some(title => 
-            title.toLowerCase().includes('suínos') || title.toLowerCase().includes('aves') || title.toLowerCase().includes('doenças em')
+            title.toLowerCase().includes('suínos') || 
+            title.toLowerCase().includes('aves') || 
+            title.toLowerCase().includes('doenças em') ||
+            title.toLowerCase().includes('identificação animal')
         );
         if (hasMultiespeciesOB) {
             document.getElementById('card-upsell-multiespecies')?.classList.remove('hidden');
@@ -322,7 +325,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const hasMultiespeciesOB = member.orderbumps && member.orderbumps.some(title => 
-            title.toLowerCase().includes('suínos') || title.toLowerCase().includes('aves') || title.toLowerCase().includes('doenças em')
+            title.toLowerCase().includes('suínos') || 
+            title.toLowerCase().includes('aves') || 
+            title.toLowerCase().includes('doenças em') ||
+            title.toLowerCase().includes('identificação animal')
         );
         if (hasMultiespeciesOB) {
             ids.push('card-upsell-multiespecies');
