@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO Meta Tags -->
+    <title>Oferta Exclusiva: +250 Doenças em Suínos, Aves, Ovinos e Caprinos</title>
+    <meta name="robots" content="noindex, nofollow">
+
+    <!-- Google Fonts: Outfit (Titles) & Plus Jakarta Sans (Body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Utmify Pixel -->
+    <script>
+      window.pixelId = "6a3da62dc4a625750f1079de";
+      var a = document.createElement("script");
+      a.setAttribute("async", "");
+      a.setAttribute("defer", "");
+      a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
+      document.head.appendChild(a);
+    </script>
+
+    <style>
+        :root {
+            --color-bg-primary: #f2f7f4;      /* Fundo verde-bege muito suave */
+            --color-bg-card: #ffffff;
+            --color-green-dark: #06290E;     /* Verde profundo do Upsell */
+            --color-green-medium: #14532d;   /* Verde floresta */
+            --color-accent-gold: #be803a;     /* Tom de ouro rústico */
+            --color-accent-orange: #d97706;   /* Laranja de alta conversão (CTA) */
+            --color-success: #15803d;
+            --color-danger: #b91c1c;
+            --font-titles: 'Outfit', sans-serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+            --shadow-md: 0 8px 24px rgba(6, 41, 14, 0.08);
+            --shadow-lg: 0 16px 32px rgba(6, 41, 14, 0.15);
+            --shadow-glow: 0 0 25px rgba(21, 128, 61, 0.25);
+            --border-radius-md: 16px;
+            --transition-smooth: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: #031306;
+            background-image: radial-gradient(circle at center, #0a3614 0%, #020b04 100%);
+            background-attachment: fixed;
+            color: #ffffff;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.5rem 1rem;
+        }
+
+        .upsell-wrapper {
+            max-width: 580px;
+            width: 100%;
+            background-color: var(--color-bg-primary);
+            color: #333333;
+            border-radius: var(--border-radius-md);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.08);
+            margin-bottom: 2rem;
+        }
+
+        /* Scarcity Top Bar */
+        .scarcity-bar {
+            background-color: #ffebd8;
+            color: #7c2d12;
+            border-bottom: 3px solid #ea580c;
+            padding: 1rem;
+            text-align: center;
+            font-size: 0.875rem;
+            font-weight: 700;
+        }
+
+        .scarcity-alert {
+            font-family: var(--font-titles);
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #c2410c;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .countdown-timer {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: #ffedd5;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            border: 1px solid #fed7aa;
+            margin-top: 0.25rem;
+        }
+
+        .timer-num {
+            font-family: var(--font-titles);
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #c2410c;
+        }
+
+        /* Upsell Header */
+        .upsell-header {
+            padding: 2rem 1.5rem 1.5rem 1.5rem;
+            text-align: center;
+            background-color: var(--color-green-dark);
+            color: #ffffff;
+            border-bottom: 5px solid var(--color-accent-gold);
+            position: relative;
+        }
+
+        .offer-tag {
+            background-color: var(--color-accent-gold);
+            color: #ffffff;
+            font-family: var(--font-titles);
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-block;
+            margin-bottom: 0.75rem;
+        }
+
+        .upsell-title {
+            font-family: var(--font-titles);
+            font-size: 1.5rem;
+            font-weight: 800;
+            line-height: 1.25;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        .upsell-subtitle {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 0.5rem;
+        }
+
+        /* Pricing Card */
+        .price-card {
+            background-color: #ffffff;
+            border: 3px solid var(--color-green-dark);
+            border-radius: 12px;
+            padding: 2rem 1.5rem;
+            margin: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--shadow-md);
+            position: relative;
+        }
+
+        .price-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 8px;
+            border: 1px solid rgba(6, 41, 14, 0.08);
+            pointer-events: none;
+        }
+
+        .card-header-plan h3 {
+            font-family: var(--font-titles);
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--color-green-dark);
+            margin-bottom: 0.25rem;
+            text-transform: uppercase;
+        }
+
+        .card-subtitle-plan {
+            font-size: 0.8rem;
+            color: #555555;
+            margin-bottom: 1.25rem;
+        }
+
+        .plan-price-wrapper {
+            display: flex;
+            align-items: baseline;
+            margin-bottom: 1.5rem;
+            color: var(--color-green-dark);
+        }
+
+        .currency {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-right: 0.15rem;
+        }
+
+        .price-val {
+            font-family: var(--font-titles);
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .price-cents {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .price-period {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #666666;
+            margin-left: 0.35rem;
+        }
+
+        .plan-features {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            margin-bottom: 1.75rem;
+        }
+
+        .plan-features li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            font-size: 0.875rem;
+            color: #333333;
+            line-height: 1.35;
+        }
+
+        .feat-check {
+            width: 1.15rem;
+            height: 1.15rem;
+            color: var(--color-success);
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+        }
+
+        .btn-cta {
+            background-color: #10b981;
+            background-image: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: #ffffff;
+            font-family: var(--font-titles);
+            font-size: 1.1rem;
+            font-weight: 800;
+            text-align: center;
+            padding: 1.1rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+            transition: var(--transition-smooth);
+            text-decoration: none;
+            display: block;
+            margin-top: 0.5rem;
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45);
+            background-image: linear-gradient(135deg, #059669 0%, #047857 100%);
+        }
+
+        .plan-security-note {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.75rem;
+            color: #777777;
+            margin-top: 0.75rem;
+        }
+
+        .plan-security-note svg {
+            width: 0.85rem;
+            height: 0.85rem;
+            color: #888888;
+        }
+
+        /* Decline Button Link */
+        .decline-link-wrapper {
+            text-align: center;
+            padding: 0.5rem 1.5rem 2rem 1.5rem;
+        }
+
+        .decline-link {
+            font-size: 0.85rem;
+            color: #888888;
+            text-decoration: underline;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .decline-link:hover {
+            color: var(--color-danger);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="upsell-wrapper">
+        
+        <!-- Scarcity Alert Bar -->
+        <div class="scarcity-bar">
+            <span class="scarcity-alert">⚠️ ATENÇÃO: NÃO FECHE OU ATUALIZE ESTA PÁGINA!</span>
+            Esta é uma oferta única apresentada exclusivamente nesta tela. Acesso ao material bovino garantido.
+            <div>
+                <div class="countdown-timer">
+                    <span>Oferta expira em:</span>
+                    <span class="timer-num" id="countdown">09:59</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upsell Header -->
+        <div class="upsell-header">
+            <span class="offer-tag">Oportunidade Única</span>
+            <h1 class="upsell-title">
+                Adicione o Guia Multiespécies e Complete Seu Conhecimento
+            </h1>
+            <p class="upsell-subtitle">Identifique sinais clínicos e evite perdas graves também em suínos, aves, ovinos e caprinos.</p>
+        </div>
+
+        <!-- Green Pricing Card -->
+        <div class="price-card">
+            <div class="card-header-plan">
+                <h3>Acesso Especial</h3>
+                <p class="card-subtitle-plan">Condição exclusiva de upgrade de compra</p>
+            </div>
+            
+            <div class="plan-price-wrapper">
+                <span class="currency">R$</span>
+                <span class="price-val">15</span>
+                <span class="price-cents">,90</span>
+                <span class="price-period">/ pagamento único</span>
+            </div>
+
+            <ul class="plan-features">
+                <li>
+                    <svg class="feat-check" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <span><strong>Material +250 Materiais Ilustrados</strong> para Identificação de Doenças em Suínos, Aves, Ovinos e Caprinos</span>
+                </li>
+                <li>
+                    <svg class="feat-check" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <span><strong>Acesso Vitalício</strong> para consultas sempre que precisar</span>
+                </li>
+                <li>
+                    <svg class="feat-check" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <span><strong>Sem Mensalidades</strong> — taxa única de adesão</span>
+                </li>
+            </ul>
+
+            <button class="btn-cta" id="btn-buy-upsell">
+                SIM, QUERO ADICIONAR ESTE MATERIAL
+            </button>
+
+            <div class="plan-security-note">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                </svg>
+                <span>Pagamento 100% criptografado e seguro</span>
+            </div>
+        </div>
+
+        <!-- Decline Action Link -->
+        <div class="decline-link-wrapper">
+            <span class="decline-link" id="btn-decline-upsell">
+                Não, obrigado. Quero recusar essa oferta e acessar o material bovino.
+            </span>
+        </div>
+
+    </div>
+
+    <!-- Script to handle countdown and UTM parameter forwarding -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 1. Countdown Timer (10 minutes)
+            let time = 600; // 10 minutes in seconds
+            const countdownEl = document.getElementById('countdown');
+            
+            const timer = setInterval(() => {
+                const minutes = Math.floor(time / 60);
+                let seconds = time % 60;
+                seconds = seconds < 10 ? '0' + seconds : seconds;
+                countdownEl.innerText = `${minutes}:${seconds}`;
+                
+                if (time <= 0) {
+                    clearInterval(timer);
+                    countdownEl.innerText = "00:00";
+                }
+                time--;
+            }, 1000);
+
+            // 2. UTM Parameter Extraction & Forwarding
+            function getCheckoutUrlWithUtms(baseUrl) {
+                let queryString = window.location.search;
+                
+                if (!queryString || !queryString.includes('utm_')) {
+                    const utms = [];
+                    const keys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'src', 'sck'];
+                    keys.forEach(key => {
+                        const val = localStorage.getItem(key) || localStorage.getItem(`utmify_${key}`);
+                        if (val) {
+                            utms.push(`${key}=${encodeURIComponent(val)}`);
+                        }
+                    });
+                    if (utms.length > 0) {
+                        queryString = '?' + utms.join('&');
+                    }
+                }
+                
+                if (!queryString) return baseUrl;
+                const separator = baseUrl.includes('?') ? '&' : '?';
+                const cleanParams = queryString.startsWith('?') ? queryString.substring(1) : queryString;
+                return `${baseUrl}${separator}${cleanParams}`;
+            }
+
+            // Save UTMs if any are in url search query
+            const params = new URLSearchParams(window.location.search);
+            const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'src', 'sck'];
+            utmKeys.forEach(key => {
+                const val = params.get(key);
+                if (val) {
+                    localStorage.setItem(key, val);
+                    localStorage.setItem('utmify_' + key, val);
+                }
+            });
+
+            // Action: Buy Upsell
+            document.getElementById('btn-buy-upsell').addEventListener('click', () => {
+                const targetUrl = 'https://ggcheckout.app/checkout/v5/BjgfNfFRRHOpeXnlzKHM';
+                window.location.href = getCheckoutUrlWithUtms(targetUrl);
+            });
+
+            // Action: Decline Upsell
+            document.getElementById('btn-decline-upsell').addEventListener('click', () => {
+                const targetUrl = 'https://www.tecnicasbovino.hyzencompra.shop/area-de-membros/';
+                window.location.href = getCheckoutUrlWithUtms(targetUrl);
+            });
+        });
+    </script>
+
+</body>
+
+</html>

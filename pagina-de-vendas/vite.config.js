@@ -8,6 +8,7 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         back: resolve(__dirname, 'back/index.html'),
+        upsell1: resolve(__dirname, 'upsell1/index.html'),
       },
     },
   },
