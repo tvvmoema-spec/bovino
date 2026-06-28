@@ -47,26 +47,17 @@
             || (window.innerWidth <= 800 && window.innerHeight <= 900);
         }
 
-        // Função para extrair UTMs do localStorage ou da URL
+        // Função para extrair UTMs apenas da URL
         function hasUtmParams() {
           const urlParams = new URLSearchParams(window.location.search);
           const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'src', 'sck'];
           
-          // 1. Verifica na URL primeiro
+          // Verifica apenas na URL
           for (let key of utmKeys) {
             if (urlParams.has(key) && urlParams.get(key).trim() !== '') {
               return true;
             }
           }
-          
-          // 2. Se não estiver na URL, verifica no localStorage (se o usuário já entrou antes com UTMs)
-          try {
-            for (let key of utmKeys) {
-              if (localStorage.getItem(key) || localStorage.getItem('utmify_' + key)) {
-                return true;
-              }
-            }
-          } catch(e) {}
           
           return false;
         }
