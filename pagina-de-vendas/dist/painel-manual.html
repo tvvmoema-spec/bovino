@@ -407,12 +407,12 @@
                             selectPlan('basico');
                         }
 
-                        // Marca orderbumps ativos no banco
+                        // Marca orderbumps ativos no banco (usando palavras-chave para abranger nomes antigos e novos)
                         const orderbumps = member.orderbumps || [];
-                        document.getElementById('bump-meds').checked = orderbumps.includes("250 Medicamentos Veterinários Ilustrados");
-                        document.getElementById('bump-first-aid').checked = orderbumps.includes("Kit de Primeiros Socorros em Bovinos");
-                        document.getElementById('bump-nutrition').checked = orderbumps.includes("Manual de Manejo Nutricional Bovino");
-                        document.getElementById('upsell-multiespecies').checked = orderbumps.includes("Kit Completo de Identificação Animal");
+                        document.getElementById('bump-meds').checked = orderbumps.some(x => x.toLowerCase().includes('medicamentos'));
+                        document.getElementById('bump-first-aid').checked = orderbumps.some(x => x.toLowerCase().includes('socorros'));
+                        document.getElementById('bump-nutrition').checked = orderbumps.some(x => x.toLowerCase().includes('nutricional') || x.toLowerCase().includes('alimentação') || x.toLowerCase().includes('alimentacao'));
+                        document.getElementById('upsell-multiespecies').checked = orderbumps.some(x => x.toLowerCase().includes('suínos') || x.toLowerCase().includes('suinos') || x.toLowerCase().includes('identificação animal') || x.toLowerCase().includes('identificacao animal') || x.toLowerCase().includes('multiespécies') || x.toLowerCase().includes('multiespecies'));
 
                         // Altera botão de envio
                         document.getElementById('btn-text').innerText = 'ATUALIZAR CADASTRO';
