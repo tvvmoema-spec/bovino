@@ -67,16 +67,17 @@ serve(async (req) => {
       let needsUpdate = false
 
       purchasedTitles.forEach((title: string) => {
-        if (title.toLowerCase().includes('completo') || title.toLowerCase().includes('full')) {
-          if (updatedPlan !== 'Completo') {
-            updatedPlan = 'Completo'
-            needsUpdate = true
-          }
-        }
-        
-        // If it is not the main Bovino product, add to orderbumps list
         const isCoreMain = title.toLowerCase().includes('300 técnicas') || title.toLowerCase().includes('doenças bovinas')
-        if (!isCoreMain) {
+        
+        if (isCoreMain) {
+          if (title.toLowerCase().includes('completo') || title.toLowerCase().includes('full')) {
+            if (updatedPlan !== 'Completo') {
+              updatedPlan = 'Completo'
+              needsUpdate = true
+            }
+          }
+        } else {
+          // If it is not the main Bovino product, add to orderbumps list
           if (!updatedOrderbumps.includes(title)) {
             updatedOrderbumps.push(title)
             needsUpdate = true
