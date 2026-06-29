@@ -9,6 +9,7 @@ export default defineConfig({
         main: resolve(__dirname, 'index.html'),
         back: resolve(__dirname, 'back/index.html'),
         upsell1: resolve(__dirname, 'upsell1/index.html'),
+        painelManual: resolve(__dirname, 'painel-manual.html'),
       },
     },
   },
