@@ -62,9 +62,10 @@ serve(async (req) => {
         .eq('email', email)
         .maybeSingle()
 
-      let updatedOrderbumps = member ? (member.orderbumps || []) : []
-      let updatedPlan = member ? (member.plan || 'Básico') : 'Básico'
-      let needsUpdate = false
+      const isManual = payload.is_manual_panel === true
+      let updatedOrderbumps = member && !isManual ? (member.orderbumps || []) : []
+      let updatedPlan = member && !isManual ? (member.plan || 'Básico') : 'Básico'
+      let needsUpdate = isManual
 
       purchasedTitles.forEach((title: string) => {
         const isCoreMain = title.toLowerCase().includes('300 técnicas') || title.toLowerCase().includes('doenças bovinas')

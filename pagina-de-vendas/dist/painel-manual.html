@@ -488,6 +488,7 @@
             const payload = {
                 "event": "pix.paid",
                 "only_update_db": skipEmail,
+                "is_manual_panel": true,
                 "payment": {
                     "status": "paid",
                     "amount": planValue === 'completo' ? 47.70 : 27.90
