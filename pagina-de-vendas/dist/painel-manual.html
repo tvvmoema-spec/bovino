@@ -290,7 +290,7 @@
             <!-- Nome -->
             <div class="form-group">
                 <label for="client-name">NOME COMPLETO DO CLIENTE</label>
-                <input type="text" id="client-name" placeholder="Ex: João da Silva" required autocomplete="off">
+                <input type="text" id="client-name" placeholder="Ex: João da Silva" autocomplete="off">
             </div>
 
             <!-- E-mail -->
@@ -363,6 +363,9 @@
     </div>
 
     <script>
+        const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpleHZ3aGhteHZqbGJua3NnamtyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI0MTE0MzksImV4cCI6MjA5Nzk4NzQzOX0.hUCNqjqSi7haGBHRPTFhkYdAMmuDXwQOxDUwNx9QcXk";
+        let isExistingMember = false;
+
         function selectPlan(plan) {
             document.querySelectorAll('.radio-card').forEach(card => card.classList.remove('selected'));
             if (plan === 'basico') {
@@ -373,6 +376,55 @@
                 document.getElementById('plan-completo').parentElement.classList.add('selected');
             }
         }
+
+        // Busca dados do cliente dinamicamente ao sair do campo de e-mail
+        document.getElementById('client-email').addEventListener('blur', async (e) => {
+            const email = e.target.value.trim().toLowerCase();
+            if (!email) return;
+
+            try {
+                const response = await fetch(`https://zexvwhhmxvjlbnksgjkr.supabase.co/rest/v1/members?email=eq.${encodeURIComponent(email)}`, {
+                    headers: {
+                        "apikey": supabaseAnonKey,
+                        "Authorization": `Bearer ${supabaseAnonKey}`
+                    }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data && data.length > 0) {
+                        const member = data[0];
+                        isExistingMember = true;
+                        
+                        // Preenche nome
+                        document.getElementById('client-name').value = member.name || '';
+                        
+                        // Seleciona plano
+                        const plan = (member.plan || '').toLowerCase();
+                        if (plan.includes('completo')) {
+                            selectPlan('completo');
+                        } else {
+                            selectPlan('basico');
+                        }
+
+                        // Marca orderbumps ativos no banco
+                        const orderbumps = member.orderbumps || [];
+                        document.getElementById('bump-meds').checked = orderbumps.includes("250 Medicamentos Veterinários Ilustrados");
+                        document.getElementById('bump-first-aid').checked = orderbumps.includes("Kit de Primeiros Socorros em Bovinos");
+                        document.getElementById('bump-nutrition').checked = orderbumps.includes("Manual de Manejo Nutricional Bovino");
+                        document.getElementById('upsell-multiespecies').checked = orderbumps.includes("Kit Completo de Identificação Animal");
+
+                        // Altera botão de envio
+                        document.getElementById('btn-text').innerText = 'ATUALIZAR CADASTRO';
+                    } else {
+                        isExistingMember = false;
+                        document.getElementById('btn-text').innerText = 'CADASTRAR E ENVIAR ACESSO';
+                    }
+                }
+            } catch (err) {
+                console.error("Erro ao buscar dados do cliente:", err);
+            }
+        });
 
         document.getElementById('manual-entry-form').addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -387,6 +439,15 @@
             const statusBox = document.getElementById('status-message');
 
             statusBox.style.display = 'none';
+
+            // Validação de nome obrigatório apenas para novos cadastros
+            if (!name && !isExistingMember) {
+                statusBox.className = "status-box status-error";
+                statusBox.innerHTML = `<strong>❌ ERRO NO ENVIO</strong><br>O nome completo é obrigatório para novos cadastros.`;
+                statusBox.style.display = "block";
+                return;
+            }
+
             btnSubmit.disabled = true;
             spinner.style.display = 'block';
             btnText.innerText = 'Processando...';
@@ -432,7 +493,7 @@
                     "amount": planValue === 'completo' ? 47.70 : 27.90
                 },
                 "customer": {
-                    "name": name,
+                    "name": name || "Cliente",
                     "email": email,
                     "phone": "5500000000000"
                 },
@@ -462,6 +523,8 @@
                     statusBox.style.display = "block";
                     document.getElementById('manual-entry-form').reset();
                     selectPlan('basico');
+                    document.getElementById('btn-text').innerText = 'CADASTRAR E ENVIAR ACESSO';
+                    isExistingMember = false;
                 } else {
                     throw new Error(result.error || "Erro no processamento da Edge Function.");
                 }
@@ -472,7 +535,11 @@
             } finally {
                 btnSubmit.disabled = false;
                 spinner.style.display = 'none';
-                btnText.innerText = 'CADASTRAR E ENVIAR ACESSO';
+                if (!isExistingMember) {
+                    btnText.innerText = 'CADASTRAR E ENVIAR ACESSO';
+                } else {
+                    btnText.innerText = 'ATUALIZAR CADASTRO';
+                }
             }
         });
     </script>
