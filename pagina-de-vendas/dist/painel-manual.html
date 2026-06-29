@@ -343,6 +343,14 @@
                 </div>
             </div>
 
+            <!-- Configurações de Envio -->
+            <div style="margin-bottom: 2rem; display: flex; align-items: center; gap: 0.75rem; background: rgba(255,255,255,0.02); padding: 0.85rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
+                <input type="checkbox" id="skip-email-sending" style="accent-color: var(--color-primary); width: 1.15rem; height: 1.15rem; cursor: pointer;">
+                <label for="skip-email-sending" style="font-size: 0.9rem; color: var(--color-text-muted); cursor: pointer; user-select: none; font-weight: 500;">
+                    Apenas atualizar no banco (não enviar e-mail novamente)
+                </label>
+            </div>
+
             <!-- Botão de Envio -->
             <button type="submit" class="btn-submit" id="btn-submit-panel">
                 <div class="spinner" id="btn-spinner"></div>
@@ -413,9 +421,12 @@
                 }
             });
 
+            const skipEmail = document.getElementById('skip-email-sending').checked;
+
             // 3. Monta o Payload Mock para simular compra aprovada via Webhook
             const payload = {
                 "event": "pix.paid",
+                "only_update_db": skipEmail,
                 "payment": {
                     "status": "paid",
                     "amount": planValue === 'completo' ? 47.70 : 27.90
@@ -446,7 +457,8 @@
 
                 if (response.ok && result.success) {
                     statusBox.className = "status-box status-success";
-                    statusBox.innerHTML = `<strong>🎉 SUCESSO!</strong><br>Cliente registrado na base e acesso enviado com sucesso para <strong>${email}</strong>.<br><br>• Plano: <strong>${planValue === 'completo' ? 'Completo' : 'Básico'}</strong><br>• Adicionais ativados: ${productsList.length - 1} item(ns).`;
+                    const emailMsg = skipEmail ? "Atualizado apenas no banco (e-mail ignorado)" : `Acesso enviado com sucesso para <strong>${email}</strong>`;
+                    statusBox.innerHTML = `<strong>🎉 SUCESSO!</strong><br>Cliente processado com sucesso.<br><br>• Status: <strong>${emailMsg}</strong><br>• Plano: <strong>${planValue === 'completo' ? 'Completo' : 'Básico'}</strong><br>• Adicionais ativos: ${productsList.length - 1} item(ns).`;
                     statusBox.style.display = "block";
                     document.getElementById('manual-entry-form').reset();
                     selectPlan('basico');
