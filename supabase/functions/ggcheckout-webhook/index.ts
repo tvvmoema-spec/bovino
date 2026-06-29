@@ -114,8 +114,9 @@ serve(async (req) => {
         }
       })
 
-      // 4. Send Email via Resend
-      const resendApiKey = "re_2YRseCQB_QJQHKcTsdnANsESWpK12fTav"
+      // 4. Send Email Setup
+      const resendApiKey = Deno.env.get("RESEND_API_KEY") ?? ""
+      const brevoApiKey = Deno.env.get("BREVO_API_KEY") ?? ""
       
       // Build orderbumps HTML cards if any
       let orderbumpHtml = ""
@@ -202,26 +203,83 @@ serve(async (req) => {
         </html>
       `
 
-      // Call Resend API
-      const emailResponse = await fetch("https://api.resend.com/emails", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer " + resendApiKey,
-          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
-        },
-        body: JSON.stringify({
-          from: "Suporte <suporte@300tecnicasbovina.hyzencompra.shop>",
-          to: email,
-          subject: additionalItems.length > 0 && !purchasedTitles.some(t => t.toLowerCase().includes('300 técnicas'))
-            ? "🎉 Seu material adicional foi liberado! - Área de Membros"
-            : "Seu acesso à Área de Membros - +300 Técnicas de Identificação de Doenças Bovinas",
-          html: htmlContent
-        })
-      })
+      const emailSubject = additionalItems.length > 0 && !purchasedTitles.some(t => t.toLowerCase().includes('300 técnicas'))
+        ? "🎉 Seu material adicional foi liberado! - Área de Membros"
+        : "Seu acesso à Área de Membros - +300 Técnicas de Identificação de Doenças Bovinas";
 
-      const emailResult = await emailResponse.json()
-      console.log("Resend API response:", emailResult)
+      let emailSent = false;
+
+      // Try Resend first
+      try {
+        console.log("Tentando enviar e-mail via Resend...");
+        const emailResponse = await fetch("https://api.resend.com/emails", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + resendApiKey,
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+          },
+          body: JSON.stringify({
+            from: "Suporte <suporte@300tecnicasbovina.hyzencompra.shop>",
+            to: email,
+            subject: emailSubject,
+            html: htmlContent
+          })
+        });
+
+        const emailResult = await emailResponse.json();
+        console.log("Resend API response:", emailResult);
+
+        if (emailResponse.status === 200 || emailResponse.status === 201) {
+          emailSent = true;
+          console.log("E-mail enviado com sucesso via Resend!");
+        } else {
+          console.warn("Resend falhou com status:", emailResponse.status, emailResult);
+        }
+      } catch (err) {
+        console.error("Erro ao enviar via Resend:", err);
+      }
+
+      // If Resend failed, try Brevo
+      if (!emailSent) {
+        try {
+          console.log("Tentando enviar e-mail via Brevo (Fallback)...");
+          const brevoResponse = await fetch("https://api.brevo.com/v3/smtp/email", {
+            method: "POST",
+            headers: {
+              "accept": "application/json",
+              "api-key": brevoApiKey,
+              "content-type": "application/json"
+            },
+            body: JSON.stringify({
+              sender: {
+                name: "Suporte",
+                email: "suporte@300tecnicasbovina.hyzencompra.shop"
+              },
+              to: [
+                {
+                  email: email,
+                  name: name
+                }
+              ],
+              subject: emailSubject,
+              htmlContent: htmlContent
+            })
+          });
+
+          const brevoResult = await brevoResponse.json();
+          console.log("Brevo API response:", brevoResult);
+
+          if (brevoResponse.status === 200 || brevoResponse.status === 201) {
+            emailSent = true;
+            console.log("E-mail enviado com sucesso via Brevo!");
+          } else {
+            console.error("Brevo falhou com status:", brevoResponse.status, brevoResult);
+          }
+        } catch (err) {
+          console.error("Erro ao enviar via Brevo:", err);
+        }
+      }
     }
 
     return new Response(JSON.stringify({ success: true }), {
